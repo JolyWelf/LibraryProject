@@ -136,13 +136,17 @@ namespace LibraryProject
                 //}
                 if (userType == 1) // Библиотекарь
                 {
-                    MessageBox.Show("Добро пожаловать, библиотекарь!", "Авторизация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Добро пожаловать, библиотекарь!", 
+                        "Authorization", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Form1 librarianForm = new Form1(); // Форма для библиотекаря
                     librarianForm.Show();
                 }
                 else if (userType == 2) // Читатель
                 {
-                    MessageBox.Show("Добро пожаловать, читатель!", "Авторизация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Добро пожаловать, читатель!", 
+                        "Authorization",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
                     FormReader readerForm = new FormReader(); // Форма для читателя
                     readerForm.Show();
                 }
@@ -151,7 +155,9 @@ namespace LibraryProject
             }
             else
             {
-                MessageBox.Show("Неправильное имя пользователя или пароль.", "Ошибка входа", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Неправильное имя пользователя или пароль.",
+                    "Visual C# and SQLite (ERROR)", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -13,6 +13,8 @@ using System. Threading.Tasks;
 namespace LibraryProject
 {
     public partial class Form1 : Form
+
+        //////////
     {
         // Инициализация переменных для работы с базой данных
         private static string dbCommand = "";
@@ -501,6 +503,11 @@ namespace LibraryProject
         }
 
         private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
         {
 
         }
