@@ -406,7 +406,7 @@ namespace LibraryProject
 
             if (dbCommand.ToUpper() == "UPDATE")
             {
-                command.Parameters.AddWithValue ("ID", IDTextBox.Text.Trim());
+                command.Parameters.AddWithValue("ID", IDTextBox.Text.Trim());
             }
         }
 
