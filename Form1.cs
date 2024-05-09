@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 namespace LibraryProject
 {
@@ -512,91 +513,107 @@ namespace LibraryProject
         // кнопка сохранения для таба с заказами
         private void saveOrdersButton_Click(object sender, EventArgs e)
         {
-            // проверка на заполнение полей. если одно не заполнено - ошибка
+            // Проверка на заполнение полей
             if (string.IsNullOrEmpty(customerIDOrdersTextBox.Text.Trim()) ||
                 string.IsNullOrEmpty(bookIDOrdersTextBox.Text.Trim()) ||
                 string.IsNullOrEmpty(orderDateTextBox.Text.Trim()) ||
                 string.IsNullOrEmpty(returnDateTextBox.Text.Trim()))
             {
-                MessageBox.Show("Please fill in the required fields.", "Add New Record", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please fill in all required fields.", "Add New Record", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             openConnection();
             try
             {
+                string bookId = bookIDOrdersTextBox.Text.Trim();
                 if (addNewOrdersButton.Text.Equals("Add New"))
                 {
-                    if (orderIDTextBox.Text.Trim() == "" || string.IsNullOrEmpty(orderIDTextBox.Text.Trim()))
+                    // Режим обновления существующей записи
+                    if (string.IsNullOrEmpty(orderIDTextBox.Text.Trim()))
                     {
-                        MessageBox.Show("Please select an item");
+                        MessageBox.Show("Please select an item to update.");
                         return;
                     }
 
-                    DialogResult result;
-                    result = MessageBox.Show("ID + " + orderIDTextBox.Text.Trim() + " -- Do you want to update the selected record?",
-                       "Visial C# and SQLite (UPDATE)",
-                       MessageBoxButtons.YesNo, MessageBoxIcon.Question,
-                       MessageBoxDefaultButton.Button2);
-                    if (result == DialogResult.No) { return; }
+                    // Подтверждение обновления записи
+                    DialogResult result = MessageBox.Show($"ID: {orderIDTextBox.Text.Trim()} -- Do you want to update the selected record?",
+                        "Update Record", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+
+                    if (result == DialogResult.No) return;
 
                     dbCommand = "UPDATE";
                     sql = "UPDATE tabOrders SET CustomerID = @CustomerID, BookID = @BookID, OrderDate = @OrderDate, ReturnDate = @ReturnDate WHERE ID = @ID";
                     addCmdParametersOrders();
 
-
+                    // Выполняем запрос на обновление заказа
                     int executeResult = command.ExecuteNonQuery();
-                    if (executeResult == -1)
+
+                    // Если обновление успешно, обновляем статус доступности книги
+                    if (executeResult != -1)
                     {
-                        MessageBox.Show("Data was not saved!", "Fail to save data.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        MessageBox.Show("Your SQL " + dbCommand + " QUERY has been executed successfully.", "Update Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Устанавливаем доступность книги в зависимости от наличия заказа
+                        string updateBookSql = "UPDATE books SET Available = 0 WHERE ID = @BookID";
+                        using (var updateBookCmd = new SQLiteCommand(updateBookSql, connection))
+                        {
+                            updateBookCmd.Parameters.AddWithValue("@BookID", bookId);
+                            updateBookCmd.ExecuteNonQuery();
+                        }
+
+                        updateDataBindingOrders();
+                        addNewOrdersButton.Text = "Add New";
                     }
                     else
                     {
-                        MessageBox.Show("Your SQL " + dbCommand + " QUERY has been executed successfully.", "Visual C# and SQLite Database (SAVE)", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        updateDataBindingOrders(); // Обновляем привязку данных
-                        addNewOrdersButton.Text = "Add New"; // Сбрасываем текст кнопки
+                        MessageBox.Show("Data was not saved!", "Fail to save data", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     }
                 }
-
                 else if (addNewOrdersButton.Text.Equals("Cancel"))
                 {
-                    DialogResult result;
-                    result = MessageBox.Show("Do you want to add a new customer record?", "Visual C# and SQLite (INSERT)", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (result == DialogResult.No)
-                    {
-                        return;
-
-                    }
-
+                    // Подтверждение добавления новой записи
+                    DialogResult result = MessageBox.Show("Do you want to add a new order record?", "Add Record", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.No) return;
 
                     dbCommand = "INSERT";
-                    sql = "INSERT INTO tabOrders(CustomerID, BookID, OrderDate, ReturnDate) VALUES(@CustomerID, @BookID, @OrderDate, @ReturnDate)";
+                    sql = "INSERT INTO tabOrders (CustomerID, BookID, OrderDate, ReturnDate) VALUES (@CustomerID, @BookID, @OrderDate, @ReturnDate)";
                     addCmdParametersOrders();
 
+                    // Выполняем запрос на добавление нового заказа
                     int executeResult = command.ExecuteNonQuery();
-                    if (executeResult == -1)
+
+                    // Если добавление успешно, обновляем статус доступности книги
+                    if (executeResult != -1)
                     {
-                        MessageBox.Show("Data was not saved!", "Fail to save data.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        MessageBox.Show("Your SQL " + dbCommand + " QUERY has been executed successfully.", "Add Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Устанавливаем доступность книги как "недоступно" (0)
+                        string updateBookSql = "UPDATE books SET Available = 0 WHERE ID = @BookID";
+                        using (var updateBookCmd = new SQLiteCommand(updateBookSql, connection))
+                        {
+                            updateBookCmd.Parameters.AddWithValue("@BookID", bookId);
+                            updateBookCmd.ExecuteNonQuery();
+                        }
+
+                        updateDataBindingOrders();
+                        addNewOrdersButton.Text = "Add New";
                     }
                     else
                     {
-                        MessageBox.Show("Your SQL " + dbCommand + " QUERY has been executed successfully.", "Visual C# and SQLite Database (SAVE)", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        updateDataBindingOrders(); // Обновляем привязку данных
-                        addNewButton.Text = "Add New"; // Сбрасываем текст кнопки
+                        MessageBox.Show("Data was not saved!", "Fail to save data", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     }
                 }
-
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message.ToString(), "Save Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
                 dbCommand = "";
                 closeConnection();
             }
-
         }
 
 
