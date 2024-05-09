@@ -56,11 +56,11 @@
             this.refreshDataOrdersButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.saveOrdersButton = new System.Windows.Forms.Button();
-            this.customerIDTextBox = new System.Windows.Forms.TextBox();
+            this.customerIDOrdersTextBox = new System.Windows.Forms.TextBox();
             this.addNewOrdersButton = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.deleteOrdersButton = new System.Windows.Forms.Button();
-            this.bookIDTextBox = new System.Windows.Forms.TextBox();
+            this.bookIDOrdersTextBox = new System.Windows.Forms.TextBox();
             this.moveLastOrdersButton = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.moveNextOrdersButton = new System.Windows.Forms.Button();
@@ -363,9 +363,9 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.dataGridView2);
-            this.groupBox4.Location = new System.Drawing.Point(536, 25);
+            this.groupBox4.Location = new System.Drawing.Point(536, 86);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(544, 336);
+            this.groupBox4.Size = new System.Drawing.Size(544, 275);
             this.groupBox4.TabIndex = 27;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Database";
@@ -377,7 +377,7 @@
             this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView2.Location = new System.Drawing.Point(3, 16);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(538, 317);
+            this.dataGridView2.Size = new System.Drawing.Size(538, 256);
             this.dataGridView2.TabIndex = 0;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             // 
@@ -393,11 +393,11 @@
             this.groupBox3.Controls.Add(this.refreshDataOrdersButton);
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.saveOrdersButton);
-            this.groupBox3.Controls.Add(this.customerIDTextBox);
+            this.groupBox3.Controls.Add(this.customerIDOrdersTextBox);
             this.groupBox3.Controls.Add(this.addNewOrdersButton);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.deleteOrdersButton);
-            this.groupBox3.Controls.Add(this.bookIDTextBox);
+            this.groupBox3.Controls.Add(this.bookIDOrdersTextBox);
             this.groupBox3.Controls.Add(this.moveLastOrdersButton);
             this.groupBox3.Controls.Add(this.label8);
             this.groupBox3.Controls.Add(this.moveNextOrdersButton);
@@ -487,13 +487,14 @@
             this.saveOrdersButton.TabIndex = 21;
             this.saveOrdersButton.Text = "Save";
             this.saveOrdersButton.UseVisualStyleBackColor = true;
+            this.saveOrdersButton.Click += new System.EventHandler(this.saveOrdersButton_Click);
             // 
-            // customerIDTextBox
+            // customerIDOrdersTextBox
             // 
-            this.customerIDTextBox.Location = new System.Drawing.Point(127, 58);
-            this.customerIDTextBox.Name = "customerIDTextBox";
-            this.customerIDTextBox.Size = new System.Drawing.Size(232, 20);
-            this.customerIDTextBox.TabIndex = 10;
+            this.customerIDOrdersTextBox.Location = new System.Drawing.Point(127, 58);
+            this.customerIDOrdersTextBox.Name = "customerIDOrdersTextBox";
+            this.customerIDOrdersTextBox.Size = new System.Drawing.Size(232, 20);
+            this.customerIDOrdersTextBox.TabIndex = 10;
             // 
             // addNewOrdersButton
             // 
@@ -504,6 +505,7 @@
             this.addNewOrdersButton.TabIndex = 20;
             this.addNewOrdersButton.Text = "Add New";
             this.addNewOrdersButton.UseVisualStyleBackColor = true;
+            this.addNewOrdersButton.Click += new System.EventHandler(this.addNewOrdersButton_Click);
             // 
             // label7
             // 
@@ -526,12 +528,12 @@
             this.deleteOrdersButton.Text = "Delete";
             this.deleteOrdersButton.UseVisualStyleBackColor = false;
             // 
-            // bookIDTextBox
+            // bookIDOrdersTextBox
             // 
-            this.bookIDTextBox.Location = new System.Drawing.Point(127, 84);
-            this.bookIDTextBox.Name = "bookIDTextBox";
-            this.bookIDTextBox.Size = new System.Drawing.Size(232, 20);
-            this.bookIDTextBox.TabIndex = 12;
+            this.bookIDOrdersTextBox.Location = new System.Drawing.Point(127, 84);
+            this.bookIDOrdersTextBox.Name = "bookIDOrdersTextBox";
+            this.bookIDOrdersTextBox.Size = new System.Drawing.Size(232, 20);
+            this.bookIDOrdersTextBox.TabIndex = 12;
             // 
             // moveLastOrdersButton
             // 
@@ -647,11 +649,11 @@
         private System.Windows.Forms.Button refreshDataOrdersButton;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button saveOrdersButton;
-        private System.Windows.Forms.TextBox customerIDTextBox;
+        private System.Windows.Forms.TextBox customerIDOrdersTextBox;
         private System.Windows.Forms.Button addNewOrdersButton;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button deleteOrdersButton;
-        private System.Windows.Forms.TextBox bookIDTextBox;
+        private System.Windows.Forms.TextBox bookIDOrdersTextBox;
         private System.Windows.Forms.Button moveLastOrdersButton;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button moveNextOrdersButton;

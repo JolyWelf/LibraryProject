@@ -182,15 +182,15 @@ namespace LibraryProject
                 bindingSrc.DataSource = dataSt.Tables["TabOrders"];
 
                 orderIDTextBox.DataBindings.Clear();
-                customerIDTextBox.DataBindings.Clear();
-                bookIDTextBox.DataBindings.Clear();
+                customerIDOrdersTextBox.DataBindings.Clear();
+                bookIDOrdersTextBox.DataBindings.Clear();
                 orderDateTextBox.DataBindings.Clear();
                 returnDateTextBox.DataBindings.Clear();
 
                 // Простая привязка данных
                 orderIDTextBox.DataBindings.Add("Text", bindingSrc, "ID");
-                customerIDTextBox.DataBindings.Add("Text", bindingSrc, "CustomerID");
-                bookIDTextBox.DataBindings.Add("Text", bindingSrc, "BookID");
+                customerIDOrdersTextBox.DataBindings.Add("Text", bindingSrc, "CustomerID");
+                bookIDOrdersTextBox.DataBindings.Add("Text", bindingSrc, "BookID");
                 orderDateTextBox.DataBindings.Add("Text", bindingSrc, "OrderDate");
                 returnDateTextBox.DataBindings.Add("Text", bindingSrc, "ReturnDate");
 
@@ -290,7 +290,7 @@ namespace LibraryProject
 
         private void refreshDataOrdersButton_Click(object sender, EventArgs e)
         {
-            if (addNewButton.Text.Equals("Cancel"))
+            if (addNewOrdersButton.Text.Equals("Cancel"))
             {
                 return;
             }
@@ -318,19 +318,58 @@ namespace LibraryProject
                 }
 
                 // Очищаем поля ввода для добавления новой записи
+                TextBox txt; // TextBox —  элемент управления, позволяющий пользовалю вводить текстовые данные.
+                foreach (Control c in groupBox1.Controls) //перебираем все элементы в групп-боксе1 (лэйблы, текстбоксы, кнопки)
+                {
+                    if (c.GetType() == typeof(TextBox)) //если это текст-бокс
+                    {
+                        txt = (TextBox)c; //присвавание  переменной с в переменную txt 
+                        txt.DataBindings.Clear(); //очистка существующих привязок даннных
+                        txt.Text = ""; //установка пустой строки
+                        if (txt.Name.Equals("firstNameTextBox"))
+                        {
+                            if (txt.CanFocus)
+                            {
+                                txt.Focus(); //фокус на имени пользователя
+                            }
+                        }
+                    }
+                }
+            }
+            catch { }
+        }
+
+        private void addNewOrdersButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (addNewOrdersButton.Text == "Add New") 
+                {
+                    addNewOrdersButton.Text = "Cancel";
+                    positionLabel.Text = "Position: 0/0";
+                    dataGridView2.ClearSelection(); 
+                    dataGridView2.Enabled = false;  
+                }
+                else
+                {
+                    addNewOrdersButton.Text = "Add New";
+                    updateDataBindingOrders();
+                    return;
+                }
+
                 TextBox txt;
-                foreach (Control c in groupBox1.Controls)
+                foreach (Control c in groupBox4.Controls)
                 {
                     if (c.GetType() == typeof(TextBox))
                     {
                         txt = (TextBox)c;
                         txt.DataBindings.Clear();
-                        txt.Text = "";
-                        if (txt.Name.Equals("firstNameTextBox"))
+                        txt.Text = ""; //установка пустой строки
+                        if (txt.Name.Equals("customerIDOrdersTextBox"))
                         {
                             if (txt.CanFocus)
                             {
-                                txt.Focus();
+                                txt.Focus(); //фокус на имени пользователя
                             }
                         }
                     }
@@ -342,10 +381,10 @@ namespace LibraryProject
         // Метод для добавления параметров к SQL-команде
         private void addCmdParameters()
         {
-            command.Parameters.Clear();
+            command.Parameters.Clear();     // Очищаем все существующие параметры, чтобы предотвратить конфликты
             command.CommandText = sql;
 
-            command.Parameters.AddWithValue("FirstName", firstNameTextBox.Text.Trim());
+            command.Parameters.AddWithValue("FirstName", firstNameTextBox.Text.Trim()); //trim() удаляет пробелы сначала в конце строки
             command.Parameters.AddWithValue("LastName", lastNameTextBox.Text.Trim());
             command.Parameters.AddWithValue("Birthday", birthdayTextBox.Text.Trim());
 
@@ -355,63 +394,172 @@ namespace LibraryProject
             }
         }
 
+        private void addCmdParametersOrders()
+        {
+            command.Parameters.Clear(); 
+            command.CommandText = sql;
+
+            command.Parameters.AddWithValue("CustomerID", customerIDOrdersTextBox.Text.Trim());
+            command.Parameters.AddWithValue("BookID", bookIDOrdersTextBox.Text.Trim());
+            command.Parameters.AddWithValue("OrderDate", orderDateTextBox.Text.Trim());
+            command.Parameters.AddWithValue("ReturnDate", returnDateTextBox.Text.Trim());
+
+            if (dbCommand.ToUpper() == "UPDATE")
+            {
+                command.Parameters.AddWithValue ("ID", IDTextBox.Text.Trim());
+            }
+        }
+
         // Кнопка сохранения данных
         private void saveButton_Click(object sender, EventArgs e)
         {
+            // проверка на заполнение полей. если одно не заполнено - ошибка
             if (string.IsNullOrEmpty(firstNameTextBox.Text.Trim()) || string.IsNullOrEmpty(lastNameTextBox.Text.Trim()) || string.IsNullOrEmpty(birthdayTextBox.Text.Trim()))
             {
                 MessageBox.Show("Please fill in the required fields.", "Add New Record", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            openConnection();
+            openConnection(); // отрываем коннект с бд
 
             try
             {
-                if (addNewButton.Text == "Add New")
+                // если текст кнопки add new - то обрабатываем как операцию обновления данных
+                if (addNewButton.Text.Equals("Add New"))
                 {
+                    // Проверяем, выбрано ли значение ID. Если нет, уведомляем пользователя и выходим из метода
                     if (IDTextBox.Text.Trim() == "" || string.IsNullOrEmpty(IDTextBox.Text.Trim()))
                     {
                         MessageBox.Show("Please select an item");
                         return;
                     }
 
-                    if (MessageBox.Show("ID + " + IDTextBox.Text.Trim() + " -- Do you want to update the selected record?", "Visial C# and SQLite (UPDATE)", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No)
+                    DialogResult result; // переменная с результатом диалога
+                    result = MessageBox.Show("ID + " + IDTextBox.Text.Trim() + " -- Do you want to update the selected record?",
+                        "Visial C# and SQLite (UPDATE)",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                        MessageBoxDefaultButton.Button2);//устанавливает, что по умолчанию выделенной будет кнопка N
+                    if (result == DialogResult.No) 
                     {
-                        return;
+                        return; // Если пользователь не подтвердил обновление, выходим из метода
+
                     }
 
+                    // Задаем команду как "UPDATE" и формируем SQL-запрос для обновления записи
                     dbCommand = "UPDATE";
                     sql = "UPDATE customers SET FirstName = @FirstName, LastName = @LastName, Birthday = @Birthday WHERE ID = @ID";
-                    addCmdParameters();
-                }
-                else if (addNewButton.Text.Equals("Cancel"))
-                {
-                    DialogResult result;
-                    result = MessageBox.Show("Do you want to add a new customer record?", "Visual C# and SQLite (INSERT)", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (result == DialogResult.Yes)
-                    {
-                        dbCommand = "INSERT";
-                        sql = "INSERT INTO customers(FirstName, LastName, Birthday) VALUES(@FirstName, @LastName, @Birthday)";
-                        addCmdParameters();
-                    }
-                    else
-                    {
-                        return;
-                    }
+                    addCmdParameters(); // Добавляем параметры к команде
                 }
 
+
+                // если текст   кнопки Cancel - то обрабатываем как операцию добавления новых данных 
+                else if (addNewButton.Text.Equals("Cancel"))
+                {
+                    // Запрашиваем у пользователя подтверждение добавления новой записи
+                    DialogResult result;
+                    result = MessageBox.Show("Do you want to add a new customer record?", "Visual C# and SQLite (INSERT)", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.No)
+                    {
+                        return;
+                        
+                    }
+                    
+                    dbCommand = "INSERT";
+                    sql = "INSERT INTO customers(FirstName, LastName, Birthday) VALUES(@FirstName, @LastName, @Birthday)";
+                    addCmdParameters();
+                }
+
+                // Выполняем SQL-команду в базе данных и проверяем результат выполнения
                 int executeResult = command.ExecuteNonQuery();
-                if (executeResult == -1)
+
+                if (executeResult == -1) // Если результат -1, значит, произошла ошибка при сохранении данных
                 {
                     MessageBox.Show("Data was not saved!", "Fail to save data.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
                 else
                 {
                     MessageBox.Show("Your SQL " + dbCommand + " QUERY has been executed successfully.", "Visual C# and SQLite Database (SAVE)", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    updateDataBiding();
-                    addNewButton.Text = "Add New";
+                    updateDataBiding(); // Обновляем привязку данных
+                    addNewButton.Text = "Add New"; // Сбрасываем текст кнопки
                 }
+            }
+            catch (Exception ex)
+            {
+                // Если произошло исключение, отображаем сообщение об ошибке
+                MessageBox.Show("Error: " + ex.Message.ToString(), "Save Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // Очищаем переменную dbCommand и закрываем соединение с базой данных
+                dbCommand = "";
+                closeConnection();
+            }
+        }
+
+        // кнопка сохранения для таба с заказами
+        private void saveOrdersButton_Click(object sender, EventArgs e)
+        {
+            // проверка на заполнение полей. если одно не заполнено - ошибка
+            if (string.IsNullOrEmpty(customerIDOrdersTextBox.Text.Trim()) ||
+                string.IsNullOrEmpty(bookIDOrdersTextBox.Text.Trim()) ||
+                string.IsNullOrEmpty(orderDateTextBox.Text.Trim()) ||
+                string.IsNullOrEmpty(returnDateTextBox.Text.Trim()))
+            {
+                MessageBox.Show("Please fill in the required fields.", "Add New Record", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            openConnection();
+            try
+            {
+                if (addNewOrdersButton.Text.Equals("Add New"))
+                {
+                    if (orderIDTextBox.Text.Trim() == "" || string.IsNullOrEmpty(orderIDTextBox.Text.Trim()))
+                    {
+                        MessageBox.Show("Please select an item");
+                        return;
+                    }
+
+                    DialogResult result;
+                    result = MessageBox.Show("ID + " + IDTextBox.Text.Trim() + " -- Do you want to update the selected record?",
+                       "Visial C# and SQLite (UPDATE)",
+                       MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                       MessageBoxDefaultButton.Button2);
+                    if (result == DialogResult.No) { return; }
+
+                    dbCommand = "UPDATE";
+                    sql = "UPDATE tabOrders SET CustomerID = @CustomerID, BookID = @BookID, OrderDate = @OrderDate, ReturnDate = @ReturnDate WHERE ID = @ID";
+                    addCmdParametersOrders();
+                }
+
+                else if (addNewOrdersButton.Text.Equals("Cancel"))
+                {
+                    DialogResult result;
+                    result = MessageBox.Show("Do you want to add a new customer record?", "Visual C# and SQLite (INSERT)", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.No)
+                    {
+                        return;
+
+                    }
+
+
+                    dbCommand = "INSERT";
+                    sql = "INSERT INTO tabOrders(CustomerID, BookID, OrderDate, ReturnDate) VALUES(@CustomerID, @BookID, @OrderDate, @ReturnDate)";
+                    addCmdParametersOrders();
+
+                    int executeResult = command.ExecuteNonQuery();
+                    if (executeResult == -1) 
+                    {
+                        MessageBox.Show("Data was not saved!", "Fail to save data.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Your SQL " + dbCommand + " QUERY has been executed successfully.", "Visual C# and SQLite Database (SAVE)", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        updateDataBindingOrders(); // Обновляем привязку данных
+                        addNewButton.Text = "Add New"; // Сбрасываем текст кнопки
+                    }
+                }   
+
             }
             catch (Exception ex)
             {
@@ -422,7 +570,9 @@ namespace LibraryProject
                 dbCommand = "";
                 closeConnection();
             }
+           
         }
+
 
         // Кнопка удаления данных
         private void deleteButton_Click(object sender, EventArgs e)
@@ -546,5 +696,7 @@ namespace LibraryProject
         {
             Application.Exit();
         }
+
+       
     }
 }
