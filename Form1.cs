@@ -545,7 +545,7 @@ namespace LibraryProject
                     }
 
                     DialogResult result;
-                    result = MessageBox.Show("ID + " + IDTextBox.Text.Trim() + " -- Do you want to update the selected record?",
+                    result = MessageBox.Show("ID + " + orderIDTextBox.Text.Trim() + " -- Do you want to update the selected record?",
                        "Visial C# and SQLite (UPDATE)",
                        MessageBoxButtons.YesNo, MessageBoxIcon.Question,
                        MessageBoxDefaultButton.Button2);
@@ -554,6 +554,19 @@ namespace LibraryProject
                     dbCommand = "UPDATE";
                     sql = "UPDATE tabOrders SET CustomerID = @CustomerID, BookID = @BookID, OrderDate = @OrderDate, ReturnDate = @ReturnDate WHERE ID = @ID";
                     addCmdParametersOrders();
+
+
+                    int executeResult = command.ExecuteNonQuery();
+                    if (executeResult == -1)
+                    {
+                        MessageBox.Show("Data was not saved!", "Fail to save data.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Your SQL " + dbCommand + " QUERY has been executed successfully.", "Visual C# and SQLite Database (SAVE)", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        updateDataBindingOrders(); // Обновляем привязку данных
+                        addNewOrdersButton.Text = "Add New"; // Сбрасываем текст кнопки
+                    }
                 }
 
                 else if (addNewOrdersButton.Text.Equals("Cancel"))
@@ -715,6 +728,7 @@ namespace LibraryProject
         {
             Application.Exit();
         }
+
 
         private void exitOrdersButton_Click(object sender, EventArgs e)
         {

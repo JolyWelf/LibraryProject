@@ -97,7 +97,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(49, 35);
+            this.label1.Location = new System.Drawing.Point(41, 35);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(18, 13);
             this.label1.TabIndex = 7;
@@ -107,20 +107,20 @@
             // 
             this.IDTextBox.Location = new System.Drawing.Point(127, 32);
             this.IDTextBox.Name = "IDTextBox";
-            this.IDTextBox.Size = new System.Drawing.Size(232, 20);
+            this.IDTextBox.Size = new System.Drawing.Size(211, 20);
             this.IDTextBox.TabIndex = 8;
             // 
             // firstNameTextBox
             // 
             this.firstNameTextBox.Location = new System.Drawing.Point(127, 58);
             this.firstNameTextBox.Name = "firstNameTextBox";
-            this.firstNameTextBox.Size = new System.Drawing.Size(232, 20);
+            this.firstNameTextBox.Size = new System.Drawing.Size(211, 20);
             this.firstNameTextBox.TabIndex = 10;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(49, 61);
+            this.label2.Location = new System.Drawing.Point(41, 61);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(57, 13);
             this.label2.TabIndex = 9;
@@ -130,13 +130,13 @@
             // 
             this.lastNameTextBox.Location = new System.Drawing.Point(127, 84);
             this.lastNameTextBox.Name = "lastNameTextBox";
-            this.lastNameTextBox.Size = new System.Drawing.Size(232, 20);
+            this.lastNameTextBox.Size = new System.Drawing.Size(211, 20);
             this.lastNameTextBox.TabIndex = 12;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(49, 87);
+            this.label3.Location = new System.Drawing.Point(41, 87);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 13);
             this.label3.TabIndex = 11;
@@ -146,13 +146,13 @@
             // 
             this.birthdayTextBox.Location = new System.Drawing.Point(127, 110);
             this.birthdayTextBox.Name = "birthdayTextBox";
-            this.birthdayTextBox.Size = new System.Drawing.Size(232, 20);
+            this.birthdayTextBox.Size = new System.Drawing.Size(211, 20);
             this.birthdayTextBox.TabIndex = 14;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(49, 113);
+            this.label4.Location = new System.Drawing.Point(41, 113);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(45, 13);
             this.label4.TabIndex = 13;
@@ -160,7 +160,7 @@
             // 
             // moveFirstButton
             // 
-            this.moveFirstButton.Location = new System.Drawing.Point(65, 156);
+            this.moveFirstButton.Location = new System.Drawing.Point(44, 152);
             this.moveFirstButton.Name = "moveFirstButton";
             this.moveFirstButton.Size = new System.Drawing.Size(83, 33);
             this.moveFirstButton.TabIndex = 15;
@@ -170,7 +170,7 @@
             // 
             // movePreviousButton
             // 
-            this.movePreviousButton.Location = new System.Drawing.Point(154, 156);
+            this.movePreviousButton.Location = new System.Drawing.Point(133, 152);
             this.movePreviousButton.Name = "movePreviousButton";
             this.movePreviousButton.Size = new System.Drawing.Size(55, 33);
             this.movePreviousButton.TabIndex = 16;
@@ -180,7 +180,7 @@
             // 
             // moveNextButton
             // 
-            this.moveNextButton.Location = new System.Drawing.Point(215, 156);
+            this.moveNextButton.Location = new System.Drawing.Point(194, 152);
             this.moveNextButton.Name = "moveNextButton";
             this.moveNextButton.Size = new System.Drawing.Size(55, 33);
             this.moveNextButton.TabIndex = 17;
@@ -190,7 +190,7 @@
             // 
             // moveLastButton
             // 
-            this.moveLastButton.Location = new System.Drawing.Point(276, 156);
+            this.moveLastButton.Location = new System.Drawing.Point(255, 152);
             this.moveLastButton.Name = "moveLastButton";
             this.moveLastButton.Size = new System.Drawing.Size(83, 33);
             this.moveLastButton.TabIndex = 18;
@@ -202,9 +202,9 @@
             // 
             this.deleteButton.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.deleteButton.ForeColor = System.Drawing.Color.Red;
-            this.deleteButton.Location = new System.Drawing.Point(65, 212);
+            this.deleteButton.Location = new System.Drawing.Point(44, 191);
             this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(95, 33);
+            this.deleteButton.Size = new System.Drawing.Size(83, 33);
             this.deleteButton.TabIndex = 19;
             this.deleteButton.TabStop = false;
             this.deleteButton.Text = "Delete";
@@ -214,9 +214,9 @@
             // addNewButton
             // 
             this.addNewButton.ForeColor = System.Drawing.Color.Blue;
-            this.addNewButton.Location = new System.Drawing.Point(166, 212);
+            this.addNewButton.Location = new System.Drawing.Point(133, 191);
             this.addNewButton.Name = "addNewButton";
-            this.addNewButton.Size = new System.Drawing.Size(92, 33);
+            this.addNewButton.Size = new System.Drawing.Size(116, 33);
             this.addNewButton.TabIndex = 20;
             this.addNewButton.Text = "Add New";
             this.addNewButton.UseVisualStyleBackColor = true;
@@ -225,9 +225,9 @@
             // saveButton
             // 
             this.saveButton.ForeColor = System.Drawing.Color.Red;
-            this.saveButton.Location = new System.Drawing.Point(264, 212);
+            this.saveButton.Location = new System.Drawing.Point(255, 191);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(95, 33);
+            this.saveButton.Size = new System.Drawing.Size(83, 33);
             this.saveButton.TabIndex = 21;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
@@ -235,9 +235,9 @@
             // 
             // refreshDataButton
             // 
-            this.refreshDataButton.Location = new System.Drawing.Point(65, 266);
+            this.refreshDataButton.Location = new System.Drawing.Point(44, 230);
             this.refreshDataButton.Name = "refreshDataButton";
-            this.refreshDataButton.Size = new System.Drawing.Size(193, 35);
+            this.refreshDataButton.Size = new System.Drawing.Size(144, 35);
             this.refreshDataButton.TabIndex = 22;
             this.refreshDataButton.Text = "Refresh Data";
             this.refreshDataButton.UseVisualStyleBackColor = true;
@@ -245,9 +245,9 @@
             // 
             // exitButton
             // 
-            this.exitButton.Location = new System.Drawing.Point(264, 266);
+            this.exitButton.Location = new System.Drawing.Point(194, 230);
             this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(95, 35);
+            this.exitButton.Size = new System.Drawing.Size(144, 35);
             this.exitButton.TabIndex = 23;
             this.exitButton.Text = " Exit";
             this.exitButton.UseVisualStyleBackColor = true;
@@ -256,9 +256,9 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.dataGridView1);
-            this.groupBox2.Location = new System.Drawing.Point(465, 93);
+            this.groupBox2.Location = new System.Drawing.Point(468, 24);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(603, 232);
+            this.groupBox2.Size = new System.Drawing.Size(595, 265);
             this.groupBox2.TabIndex = 24;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Database";
@@ -270,7 +270,7 @@
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(3, 16);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(597, 213);
+            this.dataGridView1.Size = new System.Drawing.Size(589, 246);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -296,7 +296,7 @@
             this.groupBox1.Controls.Add(this.movePreviousButton);
             this.groupBox1.Location = new System.Drawing.Point(43, 24);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(404, 366);
+            this.groupBox1.Size = new System.Drawing.Size(404, 318);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Детали клиента";
@@ -304,9 +304,9 @@
             // keywordTextBox
             // 
             this.keywordTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.keywordTextBox.Location = new System.Drawing.Point(468, 56);
+            this.keywordTextBox.Location = new System.Drawing.Point(517, 295);
             this.keywordTextBox.Name = "keywordTextBox";
-            this.keywordTextBox.Size = new System.Drawing.Size(196, 24);
+            this.keywordTextBox.Size = new System.Drawing.Size(260, 24);
             this.keywordTextBox.TabIndex = 26;
             // 
             // contextMenuStrip1
@@ -316,9 +316,9 @@
             // 
             // searchButton
             // 
-            this.searchButton.Location = new System.Drawing.Point(695, 56);
+            this.searchButton.Location = new System.Drawing.Point(783, 295);
             this.searchButton.Name = "searchButton";
-            this.searchButton.Size = new System.Drawing.Size(101, 24);
+            this.searchButton.Size = new System.Drawing.Size(233, 24);
             this.searchButton.TabIndex = 28;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = true;
@@ -363,7 +363,7 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.dataGridView2);
-            this.groupBox4.Location = new System.Drawing.Point(536, 86);
+            this.groupBox4.Location = new System.Drawing.Point(479, 24);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(544, 275);
             this.groupBox4.TabIndex = 27;
@@ -403,9 +403,9 @@
             this.groupBox3.Controls.Add(this.moveNextOrdersButton);
             this.groupBox3.Controls.Add(this.moveFirstOrdersButton);
             this.groupBox3.Controls.Add(this.movePreviousOrdersButton);
-            this.groupBox3.Location = new System.Drawing.Point(76, 25);
+            this.groupBox3.Location = new System.Drawing.Point(43, 24);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(404, 366);
+            this.groupBox3.Size = new System.Drawing.Size(404, 319);
             this.groupBox3.TabIndex = 26;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Детали Заказа";
@@ -423,14 +423,14 @@
             // 
             this.returnDateTextBox.Location = new System.Drawing.Point(127, 136);
             this.returnDateTextBox.Name = "returnDateTextBox";
-            this.returnDateTextBox.Size = new System.Drawing.Size(232, 20);
+            this.returnDateTextBox.Size = new System.Drawing.Size(218, 20);
             this.returnDateTextBox.TabIndex = 24;
             // 
             // orderDateTextBox
             // 
             this.orderDateTextBox.Location = new System.Drawing.Point(127, 110);
             this.orderDateTextBox.Name = "orderDateTextBox";
-            this.orderDateTextBox.Size = new System.Drawing.Size(232, 20);
+            this.orderDateTextBox.Size = new System.Drawing.Size(218, 20);
             this.orderDateTextBox.TabIndex = 14;
             // 
             // label5
@@ -444,9 +444,9 @@
             // 
             // exitOrdersButton
             // 
-            this.exitOrdersButton.Location = new System.Drawing.Point(265, 287);
+            this.exitOrdersButton.Location = new System.Drawing.Point(201, 251);
             this.exitOrdersButton.Name = "exitOrdersButton";
-            this.exitOrdersButton.Size = new System.Drawing.Size(95, 35);
+            this.exitOrdersButton.Size = new System.Drawing.Size(144, 35);
             this.exitOrdersButton.TabIndex = 23;
             this.exitOrdersButton.Text = " Exit";
             this.exitOrdersButton.UseVisualStyleBackColor = true;
@@ -456,14 +456,14 @@
             // 
             this.orderIDTextBox.Location = new System.Drawing.Point(127, 32);
             this.orderIDTextBox.Name = "orderIDTextBox";
-            this.orderIDTextBox.Size = new System.Drawing.Size(232, 20);
+            this.orderIDTextBox.Size = new System.Drawing.Size(218, 20);
             this.orderIDTextBox.TabIndex = 8;
             // 
             // refreshDataOrdersButton
             // 
-            this.refreshDataOrdersButton.Location = new System.Drawing.Point(66, 287);
+            this.refreshDataOrdersButton.Location = new System.Drawing.Point(51, 251);
             this.refreshDataOrdersButton.Name = "refreshDataOrdersButton";
-            this.refreshDataOrdersButton.Size = new System.Drawing.Size(193, 35);
+            this.refreshDataOrdersButton.Size = new System.Drawing.Size(144, 35);
             this.refreshDataOrdersButton.TabIndex = 22;
             this.refreshDataOrdersButton.Text = "Refresh Data";
             this.refreshDataOrdersButton.UseVisualStyleBackColor = true;
@@ -481,9 +481,9 @@
             // saveOrdersButton
             // 
             this.saveOrdersButton.ForeColor = System.Drawing.Color.Red;
-            this.saveOrdersButton.Location = new System.Drawing.Point(265, 233);
+            this.saveOrdersButton.Location = new System.Drawing.Point(263, 212);
             this.saveOrdersButton.Name = "saveOrdersButton";
-            this.saveOrdersButton.Size = new System.Drawing.Size(95, 33);
+            this.saveOrdersButton.Size = new System.Drawing.Size(83, 33);
             this.saveOrdersButton.TabIndex = 21;
             this.saveOrdersButton.Text = "Save";
             this.saveOrdersButton.UseVisualStyleBackColor = true;
@@ -493,15 +493,15 @@
             // 
             this.customerIDOrdersTextBox.Location = new System.Drawing.Point(127, 58);
             this.customerIDOrdersTextBox.Name = "customerIDOrdersTextBox";
-            this.customerIDOrdersTextBox.Size = new System.Drawing.Size(232, 20);
+            this.customerIDOrdersTextBox.Size = new System.Drawing.Size(218, 20);
             this.customerIDOrdersTextBox.TabIndex = 10;
             // 
             // addNewOrdersButton
             // 
             this.addNewOrdersButton.ForeColor = System.Drawing.Color.Blue;
-            this.addNewOrdersButton.Location = new System.Drawing.Point(167, 233);
+            this.addNewOrdersButton.Location = new System.Drawing.Point(141, 212);
             this.addNewOrdersButton.Name = "addNewOrdersButton";
-            this.addNewOrdersButton.Size = new System.Drawing.Size(92, 33);
+            this.addNewOrdersButton.Size = new System.Drawing.Size(116, 33);
             this.addNewOrdersButton.TabIndex = 20;
             this.addNewOrdersButton.Text = "Add New";
             this.addNewOrdersButton.UseVisualStyleBackColor = true;
@@ -520,9 +520,9 @@
             // 
             this.deleteOrdersButton.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.deleteOrdersButton.ForeColor = System.Drawing.Color.Red;
-            this.deleteOrdersButton.Location = new System.Drawing.Point(66, 233);
+            this.deleteOrdersButton.Location = new System.Drawing.Point(52, 212);
             this.deleteOrdersButton.Name = "deleteOrdersButton";
-            this.deleteOrdersButton.Size = new System.Drawing.Size(95, 33);
+            this.deleteOrdersButton.Size = new System.Drawing.Size(83, 33);
             this.deleteOrdersButton.TabIndex = 19;
             this.deleteOrdersButton.TabStop = false;
             this.deleteOrdersButton.Text = "Delete";
@@ -532,12 +532,12 @@
             // 
             this.bookIDOrdersTextBox.Location = new System.Drawing.Point(127, 84);
             this.bookIDOrdersTextBox.Name = "bookIDOrdersTextBox";
-            this.bookIDOrdersTextBox.Size = new System.Drawing.Size(232, 20);
+            this.bookIDOrdersTextBox.Size = new System.Drawing.Size(218, 20);
             this.bookIDOrdersTextBox.TabIndex = 12;
             // 
             // moveLastOrdersButton
             // 
-            this.moveLastOrdersButton.Location = new System.Drawing.Point(277, 177);
+            this.moveLastOrdersButton.Location = new System.Drawing.Point(263, 173);
             this.moveLastOrdersButton.Name = "moveLastOrdersButton";
             this.moveLastOrdersButton.Size = new System.Drawing.Size(83, 33);
             this.moveLastOrdersButton.TabIndex = 18;
@@ -556,7 +556,7 @@
             // 
             // moveNextOrdersButton
             // 
-            this.moveNextOrdersButton.Location = new System.Drawing.Point(216, 177);
+            this.moveNextOrdersButton.Location = new System.Drawing.Point(202, 173);
             this.moveNextOrdersButton.Name = "moveNextOrdersButton";
             this.moveNextOrdersButton.Size = new System.Drawing.Size(55, 33);
             this.moveNextOrdersButton.TabIndex = 17;
@@ -566,7 +566,7 @@
             // 
             // moveFirstOrdersButton
             // 
-            this.moveFirstOrdersButton.Location = new System.Drawing.Point(66, 177);
+            this.moveFirstOrdersButton.Location = new System.Drawing.Point(52, 173);
             this.moveFirstOrdersButton.Name = "moveFirstOrdersButton";
             this.moveFirstOrdersButton.Size = new System.Drawing.Size(83, 33);
             this.moveFirstOrdersButton.TabIndex = 15;
@@ -576,7 +576,7 @@
             // 
             // movePreviousOrdersButton
             // 
-            this.movePreviousOrdersButton.Location = new System.Drawing.Point(155, 177);
+            this.movePreviousOrdersButton.Location = new System.Drawing.Point(141, 173);
             this.movePreviousOrdersButton.Name = "movePreviousOrdersButton";
             this.movePreviousOrdersButton.Size = new System.Drawing.Size(55, 33);
             this.movePreviousOrdersButton.TabIndex = 16;
