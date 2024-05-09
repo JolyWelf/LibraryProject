@@ -17,7 +17,7 @@ namespace LibraryProject
         // ========================== Переменные Базы Данных ==========================
         // ============================================================================
         private static string dbCommand = "";
-        private static BindingSource bindingSrc;
+        private static BindingSource bindingSrcCustomers, bindingSrcOrders;
         private static string dbPath = Application.StartupPath + "\\" + "LibraryProjectDB.db;";
         private static string conString = "Data Source=" + dbPath + "Version=3;New=False;Compress=True;";
         private static SQLiteConnection connection = new SQLiteConnection(conString);
@@ -41,6 +41,7 @@ namespace LibraryProject
         {
             openConnection();
             updateDataBiding();
+            updateDataBindingOrders();
             closeConnection();
         }
 
@@ -121,17 +122,17 @@ namespace LibraryProject
                 DataSet dataSt = new DataSet();
                 adapter.Fill(dataSt, "Customers");
 
-                bindingSrc = new BindingSource();
-                bindingSrc.DataSource = dataSt.Tables["Customers"];
+                bindingSrcCustomers = new BindingSource();
+                bindingSrcCustomers.DataSource = dataSt.Tables["Customers"];
 
                 // Простая привязка данных
-                IDTextBox.DataBindings.Add("Text", bindingSrc, "ID");
-                firstNameTextBox.DataBindings.Add("Text", bindingSrc, "FirstName");
-                lastNameTextBox.DataBindings.Add("Text", bindingSrc, "LastName");
-                birthdayTextBox.DataBindings.Add("Text", bindingSrc, "Birthday");
+                IDTextBox.DataBindings.Add("Text", bindingSrcCustomers, "ID");
+                firstNameTextBox.DataBindings.Add("Text", bindingSrcCustomers, "FirstName");
+                lastNameTextBox.DataBindings.Add("Text", bindingSrcCustomers, "LastName");
+                birthdayTextBox.DataBindings.Add("Text", bindingSrcCustomers, "Birthday");
 
                 dataGridView1.Enabled = true;
-                dataGridView1.DataSource = bindingSrc;
+                dataGridView1.DataSource = bindingSrcCustomers;
 
                 dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
                 dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -151,7 +152,7 @@ namespace LibraryProject
             {
                 // Очищаем привязку данных в текстовых полях
                 TextBox tb;
-                foreach (Control c in groupBox4.Controls)
+                foreach (Control c in groupBox3.Controls)
                 {
                     if (c.GetType() == typeof(TextBox))
                     {
@@ -160,6 +161,7 @@ namespace LibraryProject
                         tb.Text = "";
                     }
                 }
+                
 
                 dbCommand = "SELECT";
                 sql = "SELECT * FROM tabOrders ORDER BY ID ASC;";
@@ -177,9 +179,15 @@ namespace LibraryProject
                 SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
                 DataSet dataSt = new DataSet();
                 adapter.Fill(dataSt, "TabOrders");
+                // Добавим проверку на наличие данных в таблице
+                if (dataSt.Tables["TabOrders"].Rows.Count == 0)
+                {
+                    MessageBox.Show("No data found in tabOrders table!", "Data Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-                bindingSrc = new BindingSource();
-                bindingSrc.DataSource = dataSt.Tables["TabOrders"];
+                bindingSrcOrders = new BindingSource();
+                bindingSrcOrders.DataSource = dataSt.Tables["TabOrders"];
 
                 orderIDTextBox.DataBindings.Clear();
                 customerIDOrdersTextBox.DataBindings.Clear();
@@ -188,14 +196,14 @@ namespace LibraryProject
                 returnDateTextBox.DataBindings.Clear();
 
                 // Простая привязка данных
-                orderIDTextBox.DataBindings.Add("Text", bindingSrc, "ID");
-                customerIDOrdersTextBox.DataBindings.Add("Text", bindingSrc, "CustomerID");
-                bookIDOrdersTextBox.DataBindings.Add("Text", bindingSrc, "BookID");
-                orderDateTextBox.DataBindings.Add("Text", bindingSrc, "OrderDate");
-                returnDateTextBox.DataBindings.Add("Text", bindingSrc, "ReturnDate");
+                orderIDTextBox.DataBindings.Add("Text", bindingSrcOrders, "ID");
+                customerIDOrdersTextBox.DataBindings.Add("Text", bindingSrcOrders, "CustomerID");
+                bookIDOrdersTextBox.DataBindings.Add("Text", bindingSrcOrders, "BookID");
+                orderDateTextBox.DataBindings.Add("Text", bindingSrcOrders, "OrderDate");
+                returnDateTextBox.DataBindings.Add("Text", bindingSrcOrders, "ReturnDate");
 
                 dataGridView2.Enabled = true;
-                dataGridView2.DataSource = bindingSrc;
+                dataGridView2.DataSource = bindingSrcOrders;
 
                 dataGridView2.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
                 dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -214,12 +222,12 @@ namespace LibraryProject
         // ============================================================================
         private void displayPosition()
         {
-            positionLabel.Text = "Position: " + Convert.ToString(bindingSrc.Position + 1) + "/" + bindingSrc.Count.ToString();
+            positionLabel.Text = "Position: " + Convert.ToString(bindingSrcCustomers.Position + 1) + "/" + bindingSrcCustomers.Count.ToString();
         }
 
         private void displayPositionOrders()
         {
-            positionLabel.Text = "Position: " + Convert.ToString(bindingSrc.Position + 1) + "/" + bindingSrc.Count.ToString();
+            positionLabel.Text = "Position: " + Convert.ToString(bindingSrcOrders.Position + 1) + "/" + bindingSrcOrders.Count.ToString();
         }
 
         // ============================================================================
@@ -227,49 +235,49 @@ namespace LibraryProject
         // ============================================================================
         private void moveFirstButton_Click(object sender, EventArgs e)
         {
-            bindingSrc.MoveFirst();
+            bindingSrcCustomers.MoveFirst();
             displayPosition();
         }
 
         private void movePreviousButton_Click(object sender, EventArgs e)
         {
-            bindingSrc.MovePrevious();
+            bindingSrcCustomers.MovePrevious();
             displayPosition();
         }
 
         private void moveNextButton_Click(object sender, EventArgs e)
         {
-            bindingSrc.MoveNext();
+            bindingSrcCustomers.MoveNext();
             displayPosition();
         }
 
         private void moveLastButton_Click(object sender, EventArgs e)
         {
-            bindingSrc.MoveLast();
+            bindingSrcCustomers.MoveLast();
             displayPosition();
         }
 
         private void moveFirstOrdersButton_Click(object sender, EventArgs e)
         {
-            bindingSrc.MoveFirst();
+            bindingSrcOrders.MoveFirst();
             displayPosition();
         }
 
         private void movePreviousOrdersButton_Click(object sender, EventArgs e)
         {
-            bindingSrc.MovePrevious();
+            bindingSrcOrders.MovePrevious();
             displayPosition();
         }
 
         private void moveNextOrdersButton_Click(object sender, EventArgs e)
         {
-            bindingSrc.MoveNext();
+            bindingSrcOrders.MoveNext();
             displayPosition();
         }
 
         private void moveLastOrdersButton_Click(object sender, EventArgs e)
         {
-            bindingSrc.MoveLast();
+            bindingSrcOrders.MoveLast();
             displayPosition();
         }
 
@@ -343,12 +351,15 @@ namespace LibraryProject
         {
             try
             {
-                if (addNewOrdersButton.Text == "Add New") 
+
+                if (addNewOrdersButton.Text == "Add New")
                 {
                     addNewOrdersButton.Text = "Cancel";
                     positionLabel.Text = "Position: 0/0";
-                    dataGridView2.ClearSelection(); 
-                    dataGridView2.Enabled = false;  
+                    dataGridView2.ClearSelection();
+                    dataGridView2.Enabled = false;
+                    //clearTextBoxBindings(groupBox3.Controls); // Очистка полей в группе Orders
+                    customerIDOrdersTextBox.Focus();
                 }
                 else
                 {
@@ -358,7 +369,7 @@ namespace LibraryProject
                 }
 
                 TextBox txt;
-                foreach (Control c in groupBox4.Controls)
+                foreach (Control c in groupBox3.Controls)
                 {
                     if (c.GetType() == typeof(TextBox))
                     {
@@ -376,6 +387,19 @@ namespace LibraryProject
                 }
             }
             catch { }
+        }
+        private void clearTextBoxBindings(Control.ControlCollection controls)
+        {
+            TextBox tb;
+            foreach (Control c in controls)
+            {
+                if (c is TextBox)
+                {
+                    tb = (TextBox)c;
+                    tb.DataBindings.Clear(); // Очищаем все привязки данных
+                    tb.Text = ""; // Очищаем текстовое поле
+                }
+            }
         }
 
         // Метод для добавления параметров к SQL-команде
@@ -396,7 +420,7 @@ namespace LibraryProject
 
         private void addCmdParametersOrders()
         {
-            command.Parameters.Clear(); 
+            command.Parameters.Clear();
             command.CommandText = sql;
 
             command.Parameters.AddWithValue("CustomerID", customerIDOrdersTextBox.Text.Trim());
@@ -406,7 +430,7 @@ namespace LibraryProject
 
             if (dbCommand.ToUpper() == "UPDATE")
             {
-                command.Parameters.AddWithValue("ID", IDTextBox.Text.Trim());
+                command.Parameters.AddWithValue("ID", orderIDTextBox.Text.Trim());
             }
         }
 
@@ -439,7 +463,7 @@ namespace LibraryProject
                         "Visial C# and SQLite (UPDATE)",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question,
                         MessageBoxDefaultButton.Button2);//устанавливает, что по умолчанию выделенной будет кнопка N
-                    if (result == DialogResult.No) 
+                    if (result == DialogResult.No)
                     {
                         return; // Если пользователь не подтвердил обновление, выходим из метода
 
@@ -461,9 +485,9 @@ namespace LibraryProject
                     if (result == DialogResult.No)
                     {
                         return;
-                        
+
                     }
-                    
+
                     dbCommand = "INSERT";
                     sql = "INSERT INTO customers(FirstName, LastName, Birthday) VALUES(@FirstName, @LastName, @Birthday)";
                     addCmdParameters();
@@ -548,7 +572,7 @@ namespace LibraryProject
                     addCmdParametersOrders();
 
                     int executeResult = command.ExecuteNonQuery();
-                    if (executeResult == -1) 
+                    if (executeResult == -1)
                     {
                         MessageBox.Show("Data was not saved!", "Fail to save data.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     }
@@ -558,7 +582,7 @@ namespace LibraryProject
                         updateDataBindingOrders(); // Обновляем привязку данных
                         addNewButton.Text = "Add New"; // Сбрасываем текст кнопки
                     }
-                }   
+                }
 
             }
             catch (Exception ex)
@@ -570,7 +594,7 @@ namespace LibraryProject
                 dbCommand = "";
                 closeConnection();
             }
-           
+
         }
 
 
@@ -696,7 +720,5 @@ namespace LibraryProject
         {
             Application.Exit();
         }
-
-       
     }
 }
