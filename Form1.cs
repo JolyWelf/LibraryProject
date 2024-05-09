@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace LibraryProject
 {
@@ -388,19 +389,7 @@ namespace LibraryProject
             }
             catch { }
         }
-        private void clearTextBoxBindings(Control.ControlCollection controls)
-        {
-            TextBox tb;
-            foreach (Control c in controls)
-            {
-                if (c is TextBox)
-                {
-                    tb = (TextBox)c;
-                    tb.DataBindings.Clear(); // Очищаем все привязки данных
-                    tb.Text = ""; // Очищаем текстовое поле
-                }
-            }
-        }
+ 
 
         // Метод для добавления параметров к SQL-команде
         private void addCmdParameters()
@@ -611,6 +600,8 @@ namespace LibraryProject
         }
 
 
+
+
         // Кнопка удаления данных
         private void deleteButton_Click(object sender, EventArgs e)
         {
@@ -657,6 +648,106 @@ namespace LibraryProject
                 closeConnection();
             }
         }
+
+        private void deleteOrdersButton_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(orderIDTextBox.Text.Trim()))
+            {
+                MessageBox.Show("Please select an order to delete.", "Delete Order", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            openConnection();
+            try
+            {
+                string orderId = orderIDTextBox.Text.Trim();
+                DialogResult confirmation = MessageBox.Show("Do you want to delete the selected order (ID: " + orderId + ")?",
+                    "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (confirmation == DialogResult.No)
+                {
+                    return;
+                }
+
+                // Получение идентификатора книги из заказа
+                string bookId = null;
+                string selectBookQuery = "SELECT BookID FROM tabOrders WHERE ID = @OrderID";
+                using (var selectCommand = new SQLiteCommand(selectBookQuery, connection))
+                {
+                    selectCommand.Parameters.AddWithValue("@OrderID", orderId);
+                    using (var reader = selectCommand.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            bookId = reader["BookID"].ToString();
+                            // Вывод идентификатора книги для проверки
+                            Console.WriteLine("Book ID: " + bookId);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Order ID not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                    }
+                }
+
+                // Удаление заказа из таблицы `tabOrders`
+                string deleteOrderQuery = "DELETE FROM tabOrders WHERE ID = @OrderID";
+                using (var deleteOrderCommand = new SQLiteCommand(deleteOrderQuery, connection))
+                {
+                    deleteOrderCommand.Parameters.AddWithValue("@OrderID", orderId);
+                    int rowsAffected = deleteOrderCommand.ExecuteNonQuery();
+
+                    if (rowsAffected == 1)
+                    {
+                        // Проверка доступности книги
+                        if (!string.IsNullOrEmpty(bookId))
+                        {
+                            // Обновление статуса доступности книги
+                            string updateBookQuery = "UPDATE books SET Available = 1 WHERE ID = @BookID";
+                            using (var updateBookCommand = new SQLiteCommand(updateBookQuery, connection))
+                            {
+                                updateBookCommand.Parameters.Clear();
+                                updateBookCommand.Parameters.AddWithValue("@BookID", bookId);
+                                int updateRows = updateBookCommand.ExecuteNonQuery();
+
+                                // Проверка успешного обновления книги
+                                if (updateRows == 1)
+                                {
+                                    Console.WriteLine("Book status updated successfully.");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Failed to update book status.");
+                                }
+                            }
+                        }
+
+                        MessageBox.Show("Order and book status updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        updateDataBindingOrders();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to delete the order.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                closeConnection();
+            }
+        }
+
+
+
+
+
+
+
+
 
         // Кнопка поиска данных
         private void searchButton_Click(object sender, EventArgs e)
@@ -729,6 +820,7 @@ namespace LibraryProject
             Application.Exit();
         }
 
+       
 
         private void exitOrdersButton_Click(object sender, EventArgs e)
         {

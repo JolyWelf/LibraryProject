@@ -66,6 +66,7 @@
             this.moveNextOrdersButton = new System.Windows.Forms.Button();
             this.moveFirstOrdersButton = new System.Windows.Forms.Button();
             this.movePreviousOrdersButton = new System.Windows.Forms.Button();
+            this.SearchOrdersButton = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -350,6 +351,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.SearchOrdersButton);
             this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -527,6 +529,7 @@
             this.deleteOrdersButton.TabStop = false;
             this.deleteOrdersButton.Text = "Delete";
             this.deleteOrdersButton.UseVisualStyleBackColor = false;
+            this.deleteOrdersButton.Click += new System.EventHandler(this.deleteOrdersButton_Click);
             // 
             // bookIDOrdersTextBox
             // 
@@ -583,6 +586,15 @@
             this.movePreviousOrdersButton.Text = "<";
             this.movePreviousOrdersButton.UseVisualStyleBackColor = true;
             this.movePreviousOrdersButton.Click += new System.EventHandler(this.movePreviousOrdersButton_Click);
+            // 
+            // SearchOrdersButton
+            // 
+            this.SearchOrdersButton.Location = new System.Drawing.Point(638, 317);
+            this.SearchOrdersButton.Name = "SearchOrdersButton";
+            this.SearchOrdersButton.Size = new System.Drawing.Size(75, 23);
+            this.SearchOrdersButton.TabIndex = 29;
+            this.SearchOrdersButton.Text = "search";
+            this.SearchOrdersButton.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -663,5 +675,6 @@
         private System.Windows.Forms.TextBox returnDateTextBox;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.Button SearchOrdersButton;
     }
 }
