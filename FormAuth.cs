@@ -123,51 +123,51 @@ namespace LibraryProject
             string login = loginTextBox.Text;
             string password = passwordTextBox.Text;
 
-            // Открываем форму библиотекаря сразу
-            Form1 librarianForm = new Form1();
-            librarianForm.Show();
-            this.Hide(); // Скрываем форму авторизации
+            //// Открываем форму библиотекаря сразу
+            //Form1 librarianForm = new Form1();
+            //librarianForm.Show();
+            //this.Hide(); // Скрываем форму авторизации
 
 
-            //// Проверка учетных данных и определение типа пользователя
-            //var (isValid, userType) = ValidateUser(login, password);
+            // Проверка учетных данных и определение типа пользователя
+            var (isValid, userType) = ValidateUser(login, password);
 
-            //if (isValid)
-            //{
-            //    //if (userType == 0) // Администратор
-            //    //{
-            //    //    MessageBox.Show("Добро пожаловать, администратор!", "Авторизация", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //    //    FormAdmin adminForm = new FormAdmin(); // Замените на вашу форму администратора
-            //    //    adminForm.Show();
-            //    //}
-            //    if (userType == 1) // Библиотекарь
-            //    {
-            //        MessageBox.Show("Добро пожаловать, библиотекарь!", 
-            //            "Authorization", 
-            //            MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //        Form1 librarianForm = new Form1(); // Форма для библиотекаря
-            //        librarianForm.Show();
-            //    }
-            //    else if (userType == 2) // Читатель
-            //    {
-            //        MessageBox.Show("Добро пожаловать, читатель!", 
-            //            "Authorization",
-            //            MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //        FormReader readerForm = new FormReader(); // Форма для читателя
-            //        readerForm.Show();
-            //    }
+            if (isValid)
+            {
+                //if (userType == 0) // Администратор
+                //{
+                //    MessageBox.Show("Добро пожаловать, администратор!", "Авторизация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //    FormAdmin adminForm = new FormAdmin(); // Замените на вашу форму администратора
+                //    adminForm.Show();
+                //}
+                if (userType == 1) // Библиотекарь
+                {
+                    MessageBox.Show("Добро пожаловать, библиотекарь!",
+                        "Authorization",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Form1 librarianForm = new Form1(); // Форма для библиотекаря
+                    librarianForm.Show();
+                }
+                else if (userType == 2) // Читатель
+                {
+                    MessageBox.Show("Добро пожаловать, читатель!",
+                        "Authorization",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    FormReader readerForm = new FormReader(); // Форма для читателя
+                    readerForm.Show();
+                }
 
-            //    this.Hide(); // Скрываем форму авторизации
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Неправильное имя пользователя или пароль.",
-            //        "Visual C# and SQLite (ERROR)", 
-            //        MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+                this.Hide(); // Скрываем форму авторизации
+            }
+            else
+            {
+                MessageBox.Show("Неправильное имя пользователя или пароль.",
+                    "Visual C# and SQLite (ERROR)",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-      
+
 
         private void loginTextBox_TextChanged(object sender, EventArgs e)
         {

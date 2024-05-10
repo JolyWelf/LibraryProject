@@ -69,6 +69,8 @@
             this.moveFirstOrdersButton = new System.Windows.Forms.Button();
             this.movePreviousOrdersButton = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.searchBookButton = new System.Windows.Forms.Button();
+            this.keywordBookTextBox = new System.Windows.Forms.TextBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -88,9 +90,29 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.dataGridView4 = new System.Windows.Forms.DataGridView();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.exitResBooksButton = new System.Windows.Forms.Button();
+            this.moveLastResButton = new System.Windows.Forms.Button();
+            this.moveNextResButton = new System.Windows.Forms.Button();
+            this.movePreviousResButton = new System.Windows.Forms.Button();
+            this.moveFirstResButton = new System.Windows.Forms.Button();
+            this.isbnResTextBox = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.returnDateResTextBox = new System.Windows.Forms.TextBox();
+            this.orderDateResTextBox = new System.Windows.Forms.TextBox();
+            this.titleResTextBox = new System.Windows.Forms.TextBox();
+            this.clientResTextBox = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.keywordBookTextBox = new System.Windows.Forms.TextBox();
-            this.searchBookButton = new System.Windows.Forms.Button();
+            this.refreshDataResBooks = new System.Windows.Forms.Button();
+            this.refreshDataBooksButton = new System.Windows.Forms.Button();
+            this.exitBooksButton = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -105,6 +127,10 @@
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.groupBox5.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
+            this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -358,6 +384,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(27, 24);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -647,6 +674,23 @@
             this.tabPage3.Text = "Books";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // searchBookButton
+            // 
+            this.searchBookButton.Location = new System.Drawing.Point(751, 328);
+            this.searchBookButton.Name = "searchBookButton";
+            this.searchBookButton.Size = new System.Drawing.Size(228, 22);
+            this.searchBookButton.TabIndex = 3;
+            this.searchBookButton.Text = "SEARCH";
+            this.searchBookButton.UseVisualStyleBackColor = true;
+            this.searchBookButton.Click += new System.EventHandler(this.searchBookButton_Click);
+            // 
+            // keywordBookTextBox
+            // 
+            this.keywordBookTextBox.Location = new System.Drawing.Point(524, 330);
+            this.keywordBookTextBox.Name = "keywordBookTextBox";
+            this.keywordBookTextBox.Size = new System.Drawing.Size(221, 20);
+            this.keywordBookTextBox.TabIndex = 2;
+            // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.dataGridView3);
@@ -670,6 +714,8 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.exitBooksButton);
+            this.groupBox5.Controls.Add(this.refreshDataBooksButton);
             this.groupBox5.Controls.Add(this.moveLastBookButton);
             this.groupBox5.Controls.Add(this.moveNextBookButton);
             this.groupBox5.Controls.Add(this.movePreviousBookButton);
@@ -688,7 +734,7 @@
             this.groupBox5.Controls.Add(this.label10);
             this.groupBox5.Location = new System.Drawing.Point(60, 47);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(364, 275);
+            this.groupBox5.Size = new System.Drawing.Size(364, 303);
             this.groupBox5.TabIndex = 0;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Информация о книге";
@@ -829,27 +875,231 @@
             this.label10.TabIndex = 0;
             this.label10.Text = "ID";
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.groupBox8);
+            this.tabPage4.Controls.Add(this.groupBox7);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(1108, 414);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "ReservedBooks";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.dataGridView4);
+            this.groupBox8.Location = new System.Drawing.Point(450, 43);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(579, 293);
+            this.groupBox8.TabIndex = 1;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Database";
+            // 
+            // dataGridView4
+            // 
+            this.dataGridView4.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView4.Location = new System.Drawing.Point(3, 16);
+            this.dataGridView4.Name = "dataGridView4";
+            this.dataGridView4.Size = new System.Drawing.Size(573, 274);
+            this.dataGridView4.TabIndex = 0;
+            this.dataGridView4.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView4_CellContentClick);
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.refreshDataResBooks);
+            this.groupBox7.Controls.Add(this.exitResBooksButton);
+            this.groupBox7.Controls.Add(this.moveLastResButton);
+            this.groupBox7.Controls.Add(this.moveNextResButton);
+            this.groupBox7.Controls.Add(this.movePreviousResButton);
+            this.groupBox7.Controls.Add(this.moveFirstResButton);
+            this.groupBox7.Controls.Add(this.isbnResTextBox);
+            this.groupBox7.Controls.Add(this.label20);
+            this.groupBox7.Controls.Add(this.returnDateResTextBox);
+            this.groupBox7.Controls.Add(this.orderDateResTextBox);
+            this.groupBox7.Controls.Add(this.titleResTextBox);
+            this.groupBox7.Controls.Add(this.clientResTextBox);
+            this.groupBox7.Controls.Add(this.label19);
+            this.groupBox7.Controls.Add(this.label18);
+            this.groupBox7.Controls.Add(this.label17);
+            this.groupBox7.Controls.Add(this.label16);
+            this.groupBox7.Location = new System.Drawing.Point(68, 43);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(376, 304);
+            this.groupBox7.TabIndex = 0;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Информация о заказе";
+            // 
+            // exitResBooksButton
+            // 
+            this.exitResBooksButton.ForeColor = System.Drawing.Color.Red;
+            this.exitResBooksButton.Location = new System.Drawing.Point(205, 227);
+            this.exitResBooksButton.Name = "exitResBooksButton";
+            this.exitResBooksButton.Size = new System.Drawing.Size(142, 36);
+            this.exitResBooksButton.TabIndex = 14;
+            this.exitResBooksButton.Text = "Exit";
+            this.exitResBooksButton.UseVisualStyleBackColor = true;
+            this.exitResBooksButton.Click += new System.EventHandler(this.exitResBooksButton_Click);
+            // 
+            // moveLastResButton
+            // 
+            this.moveLastResButton.Location = new System.Drawing.Point(279, 197);
+            this.moveLastResButton.Name = "moveLastResButton";
+            this.moveLastResButton.Size = new System.Drawing.Size(68, 24);
+            this.moveLastResButton.TabIndex = 13;
+            this.moveLastResButton.Text = ">|";
+            this.moveLastResButton.UseVisualStyleBackColor = true;
+            this.moveLastResButton.Click += new System.EventHandler(this.moveLastResButton_Click);
+            // 
+            // moveNextResButton
+            // 
+            this.moveNextResButton.Location = new System.Drawing.Point(205, 197);
+            this.moveNextResButton.Name = "moveNextResButton";
+            this.moveNextResButton.Size = new System.Drawing.Size(68, 24);
+            this.moveNextResButton.TabIndex = 12;
+            this.moveNextResButton.Text = ">";
+            this.moveNextResButton.UseVisualStyleBackColor = true;
+            this.moveNextResButton.Click += new System.EventHandler(this.moveNextResButton_Click);
+            // 
+            // movePreviousResButton
+            // 
+            this.movePreviousResButton.Location = new System.Drawing.Point(131, 197);
+            this.movePreviousResButton.Name = "movePreviousResButton";
+            this.movePreviousResButton.Size = new System.Drawing.Size(68, 24);
+            this.movePreviousResButton.TabIndex = 11;
+            this.movePreviousResButton.Text = "<";
+            this.movePreviousResButton.UseVisualStyleBackColor = true;
+            this.movePreviousResButton.Click += new System.EventHandler(this.movePreviousResButton_Click);
+            // 
+            // moveFirstResButton
+            // 
+            this.moveFirstResButton.Location = new System.Drawing.Point(57, 197);
+            this.moveFirstResButton.Name = "moveFirstResButton";
+            this.moveFirstResButton.Size = new System.Drawing.Size(68, 24);
+            this.moveFirstResButton.TabIndex = 10;
+            this.moveFirstResButton.Text = "|<";
+            this.moveFirstResButton.UseVisualStyleBackColor = true;
+            this.moveFirstResButton.Click += new System.EventHandler(this.moveFirstResButton_Click);
+            // 
+            // isbnResTextBox
+            // 
+            this.isbnResTextBox.Location = new System.Drawing.Point(131, 156);
+            this.isbnResTextBox.Name = "isbnResTextBox";
+            this.isbnResTextBox.Size = new System.Drawing.Size(216, 20);
+            this.isbnResTextBox.TabIndex = 9;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(54, 159);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(32, 13);
+            this.label20.TabIndex = 8;
+            this.label20.Text = "ISBN";
+            // 
+            // returnDateResTextBox
+            // 
+            this.returnDateResTextBox.Location = new System.Drawing.Point(131, 130);
+            this.returnDateResTextBox.Name = "returnDateResTextBox";
+            this.returnDateResTextBox.Size = new System.Drawing.Size(216, 20);
+            this.returnDateResTextBox.TabIndex = 7;
+            // 
+            // orderDateResTextBox
+            // 
+            this.orderDateResTextBox.Location = new System.Drawing.Point(131, 102);
+            this.orderDateResTextBox.Name = "orderDateResTextBox";
+            this.orderDateResTextBox.Size = new System.Drawing.Size(216, 20);
+            this.orderDateResTextBox.TabIndex = 6;
+            // 
+            // titleResTextBox
+            // 
+            this.titleResTextBox.Location = new System.Drawing.Point(131, 76);
+            this.titleResTextBox.Name = "titleResTextBox";
+            this.titleResTextBox.Size = new System.Drawing.Size(216, 20);
+            this.titleResTextBox.TabIndex = 5;
+            // 
+            // clientResTextBox
+            // 
+            this.clientResTextBox.Location = new System.Drawing.Point(131, 50);
+            this.clientResTextBox.Name = "clientResTextBox";
+            this.clientResTextBox.Size = new System.Drawing.Size(216, 20);
+            this.clientResTextBox.TabIndex = 4;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(53, 133);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(62, 13);
+            this.label19.TabIndex = 3;
+            this.label19.Text = "ReturnDate";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(54, 105);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(56, 13);
+            this.label18.TabIndex = 2;
+            this.label18.Text = "OrderDate";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(54, 79);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(27, 13);
+            this.label17.TabIndex = 1;
+            this.label17.Text = "Title";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(54, 53);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(33, 13);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "Client";
+            // 
             // contextMenuStrip2
             // 
             this.contextMenuStrip2.Name = "contextMenuStrip2";
             this.contextMenuStrip2.Size = new System.Drawing.Size(61, 4);
             // 
-            // keywordBookTextBox
+            // refreshDataResBooks
             // 
-            this.keywordBookTextBox.Location = new System.Drawing.Point(524, 330);
-            this.keywordBookTextBox.Name = "keywordBookTextBox";
-            this.keywordBookTextBox.Size = new System.Drawing.Size(221, 20);
-            this.keywordBookTextBox.TabIndex = 2;
+            this.refreshDataResBooks.ForeColor = System.Drawing.Color.Blue;
+            this.refreshDataResBooks.Location = new System.Drawing.Point(57, 227);
+            this.refreshDataResBooks.Name = "refreshDataResBooks";
+            this.refreshDataResBooks.Size = new System.Drawing.Size(142, 36);
+            this.refreshDataResBooks.TabIndex = 15;
+            this.refreshDataResBooks.Text = "Refresh Data";
+            this.refreshDataResBooks.UseVisualStyleBackColor = true;
+            this.refreshDataResBooks.Click += new System.EventHandler(this.refreshDataResBooks_Click);
             // 
-            // searchBookButton
+            // refreshDataBooksButton
             // 
-            this.searchBookButton.Location = new System.Drawing.Point(751, 328);
-            this.searchBookButton.Name = "searchBookButton";
-            this.searchBookButton.Size = new System.Drawing.Size(228, 22);
-            this.searchBookButton.TabIndex = 3;
-            this.searchBookButton.Text = "SEARCH";
-            this.searchBookButton.UseVisualStyleBackColor = true;
-            this.searchBookButton.Click += new System.EventHandler(this.searchBookButton_Click);
+            this.refreshDataBooksButton.ForeColor = System.Drawing.Color.Blue;
+            this.refreshDataBooksButton.Location = new System.Drawing.Point(31, 234);
+            this.refreshDataBooksButton.Name = "refreshDataBooksButton";
+            this.refreshDataBooksButton.Size = new System.Drawing.Size(132, 38);
+            this.refreshDataBooksButton.TabIndex = 29;
+            this.refreshDataBooksButton.Text = "Refresh Data";
+            this.refreshDataBooksButton.UseVisualStyleBackColor = true;
+            this.refreshDataBooksButton.Click += new System.EventHandler(this.refreshDataBooksButton_Click);
+            // 
+            // exitBooksButton
+            // 
+            this.exitBooksButton.ForeColor = System.Drawing.Color.Red;
+            this.exitBooksButton.Location = new System.Drawing.Point(169, 234);
+            this.exitBooksButton.Name = "exitBooksButton";
+            this.exitBooksButton.Size = new System.Drawing.Size(132, 38);
+            this.exitBooksButton.TabIndex = 30;
+            this.exitBooksButton.Text = "Exit";
+            this.exitBooksButton.UseVisualStyleBackColor = true;
+            this.exitBooksButton.Click += new System.EventHandler(this.exitBooksButton_Click);
             // 
             // Form1
             // 
@@ -882,6 +1132,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -962,5 +1217,27 @@
         private System.Windows.Forms.Button moveFirstBookButton;
         private System.Windows.Forms.Button searchBookButton;
         private System.Windows.Forms.TextBox keywordBookTextBox;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.DataGridView dataGridView4;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox returnDateResTextBox;
+        private System.Windows.Forms.TextBox orderDateResTextBox;
+        private System.Windows.Forms.TextBox titleResTextBox;
+        private System.Windows.Forms.TextBox clientResTextBox;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Button moveFirstResButton;
+        private System.Windows.Forms.TextBox isbnResTextBox;
+        private System.Windows.Forms.Button moveLastResButton;
+        private System.Windows.Forms.Button moveNextResButton;
+        private System.Windows.Forms.Button movePreviousResButton;
+        private System.Windows.Forms.Button exitResBooksButton;
+        private System.Windows.Forms.Button refreshDataResBooks;
+        private System.Windows.Forms.Button refreshDataBooksButton;
+        private System.Windows.Forms.Button exitBooksButton;
     }
 }

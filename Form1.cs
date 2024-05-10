@@ -19,7 +19,7 @@ namespace LibraryProject
         // ========================== Переменные Базы Данных ==========================
         // ============================================================================
         private static string dbCommand = "";
-        private static BindingSource bindingSrcCustomers, bindingSrcOrders, bindingSrcBooks;
+        private static BindingSource bindingSrcCustomers, bindingSrcOrders, bindingSrcBooks, bindingSrcReservedBooks;
         private static string dbPath = Application.StartupPath + "\\" + "LibraryProjectDB.db;";
         private static string conString = "Data Source=" + dbPath + "Version=3;New=False;Compress=True;";
         private static SQLiteConnection connection = new SQLiteConnection(conString);
@@ -46,6 +46,7 @@ namespace LibraryProject
             updateDataBiding();
             updateDataBindingOrders();
             updateDataBindingBooks();
+            updateDataBindingReservedBooks();
             closeConnection();
         }
 
@@ -292,6 +293,90 @@ namespace LibraryProject
             }
         }
 
+        private void updateDataBindingReservedBooks(SQLiteCommand cmd = null)
+        {
+            try
+            {
+                // Очищаем привязку данных в текстовых полях
+                TextBox tb;
+                foreach (Control c in groupBox7.Controls)
+                {
+                    if (c.GetType() == typeof(TextBox))
+                    {
+                        tb = (TextBox)c;
+                        tb.DataBindings.Clear();
+                        tb.Text = "";
+                    }
+                }
+
+                // SQL-запрос для получения информации о резервировании книг
+                string sql = @"
+                        SELECT 
+                            customers.FirstName || ' ' || customers.LastName AS Client,
+                            books.Title,
+                            tabOrders.OrderDate,
+                            tabOrders.ReturnDate,
+                            books.ISBN
+                        FROM 
+                            tabOrders
+                        INNER JOIN 
+                            books ON tabOrders.BookID = books.ID
+                        INNER JOIN 
+                            customers ON tabOrders.CustomerID = customers.ID
+                        WHERE 
+                            books.Available = 0
+                        ORDER BY 
+                            customers.LastName ASC, customers.FirstName ASC;
+                    ";
+
+                // Присвоение командного текста
+                if (cmd == null)
+                {
+                    command.CommandText = sql;
+                }
+                else
+                {
+                    command = cmd;
+                }
+
+                // Заполнение данных в DataGridView
+                SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
+                DataSet dataSt = new DataSet();
+                adapter.Fill(dataSt, "ReservedBooks");
+
+
+                bindingSrcReservedBooks = new BindingSource();
+                bindingSrcReservedBooks.DataSource = dataSt.Tables["ReservedBooks"];
+
+              
+
+                // Очистка и повторная привязка текстовых полей
+                clientResTextBox.DataBindings.Clear();
+                titleResTextBox.DataBindings.Clear();
+                orderDateResTextBox.DataBindings.Clear();
+                returnDateResTextBox.DataBindings.Clear();
+                isbnResTextBox.DataBindings.Clear();
+
+                clientResTextBox.DataBindings.Add("Text", bindingSrcReservedBooks, "Client");
+                titleResTextBox.DataBindings.Add("Text", bindingSrcReservedBooks, "Title");
+                orderDateResTextBox.DataBindings.Add("Text", bindingSrcReservedBooks, "OrderDate");
+                returnDateResTextBox.DataBindings.Add("Text", bindingSrcReservedBooks, "ReturnDate");
+                isbnResTextBox.DataBindings.Add("Text", bindingSrcReservedBooks, "ISBN");
+
+                // Привязка к DataGridView и настройка отображения
+                dataGridView4.Enabled = true;
+                dataGridView4.DataSource = bindingSrcReservedBooks;
+
+                dataGridView4.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                dataGridView4.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+                displayPositionReservedBooks(); 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при привязке данных: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
 
 
@@ -311,6 +396,11 @@ namespace LibraryProject
         private void displayPositionBooks()
         {
             positionLabel.Text = "Position: " + Convert.ToString(bindingSrcBooks.Position + 1) + "/" + bindingSrcBooks.Count.ToString();    
+        }
+
+        private void displayPositionReservedBooks()
+        {
+            // to do
         }
 
         // ================================================================================================================================================================
@@ -333,6 +423,8 @@ namespace LibraryProject
             bindingSrcCustomers.MoveNext();
             displayPosition();
         }
+
+
 
         private void moveLastButton_Click(object sender, EventArgs e)
         {
@@ -365,6 +457,7 @@ namespace LibraryProject
         }
 
 
+
         private void moveFirstBookButton_Click(object sender, EventArgs e)
         {
             bindingSrcBooks.MoveFirst();    
@@ -389,6 +482,31 @@ namespace LibraryProject
             displayPositionBooks();
         }
 
+
+
+        private void moveFirstResButton_Click(object sender, EventArgs e)
+        {
+            bindingSrcReservedBooks.MoveFirst();
+            displayPositionReservedBooks();  
+        }
+
+        private void movePreviousResButton_Click(object sender, EventArgs e)
+        {
+            bindingSrcReservedBooks.MovePrevious();
+            displayPositionReservedBooks();
+        }
+
+        private void moveNextResButton_Click(object sender, EventArgs e)
+        {
+            bindingSrcReservedBooks.MoveNext();
+            displayPositionReservedBooks();
+        }
+
+        private void moveLastResButton_Click(object sender, EventArgs e)
+        {
+            bindingSrcReservedBooks.MoveLast();
+            displayPositionReservedBooks();
+        }
 
 
 
@@ -416,6 +534,18 @@ namespace LibraryProject
 
             updateDataBindingOrders();
         }
+
+        private void refreshDataBooksButton_Click(object sender, EventArgs e)
+        {
+            updateDataBindingBooks();
+        }
+
+
+        private void refreshDataResBooks_Click(object sender, EventArgs e)
+        {
+            updateDataBindingReservedBooks();
+        }
+
 
         // ================================================================================================================================================================
         // ==================================================================== Методы добавления новой записи ============================================================
@@ -1033,7 +1163,6 @@ namespace LibraryProject
             }
             catch (Exception) { }
         }
-
         private void dataGridView3_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -1044,13 +1173,33 @@ namespace LibraryProject
         }
 
 
+        private void dataGridView4_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                displayPositionReservedBooks();
+            }
+            catch (Exception) { }
+        }
+
+     
+
         private void exitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-       
+
         private void exitOrdersButton_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+        private void exitBooksButton_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void exitResBooksButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
