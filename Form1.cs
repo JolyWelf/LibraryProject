@@ -19,7 +19,7 @@ namespace LibraryProject
         // ========================== Переменные Базы Данных ==========================
         // ============================================================================
         private static string dbCommand = "";
-        private static BindingSource bindingSrcCustomers, bindingSrcOrders;
+        private static BindingSource bindingSrcCustomers, bindingSrcOrders, bindingSrcBooks;
         private static string dbPath = Application.StartupPath + "\\" + "LibraryProjectDB.db;";
         private static string conString = "Data Source=" + dbPath + "Version=3;New=False;Compress=True;";
         private static SQLiteConnection connection = new SQLiteConnection(conString);
@@ -34,6 +34,7 @@ namespace LibraryProject
             InitializeComponent();
             this.IDTextBox.Enabled = false; // Поле ID недоступно для редактирования
             this.orderIDTextBox.Enabled = false; // Поле ID недоступно для редактирования на вкладке заказов
+            this.bookIDTextBox.Enabled = false; // Поле ID недоступно для редактирования на вкладке книг
         }
 
         // ============================================================================
@@ -44,6 +45,7 @@ namespace LibraryProject
             openConnection();
             updateDataBiding();
             updateDataBindingOrders();
+            updateDataBindingBooks();
             closeConnection();
         }
 
@@ -197,6 +199,7 @@ namespace LibraryProject
                 orderDateTextBox.DataBindings.Clear();
                 returnDateTextBox.DataBindings.Clear();
 
+
                 // Простая привязка данных
                 orderIDTextBox.DataBindings.Add("Text", bindingSrcOrders, "ID");
                 customerIDOrdersTextBox.DataBindings.Add("Text", bindingSrcOrders, "CustomerID");
@@ -219,9 +222,82 @@ namespace LibraryProject
             }
         }
 
-        // ============================================================================
-        // ========================== Методы Отображения Позиции ======================
-        // ============================================================================
+        private void updateDataBindingBooks(SQLiteCommand cmd = null)
+        {
+            try
+            {
+                // Очищаем привязку данных в текстовых полях
+                TextBox tb;
+                foreach (Control c in groupBox5.Controls)
+                {
+                    if (c.GetType() == typeof(TextBox))
+                    {
+                        tb = (TextBox)c;
+                        tb.DataBindings.Clear();
+                        tb.Text = "";
+                    }
+                }
+
+
+                dbCommand = "SELECT";
+                sql = "SELECT * FROM books ORDER BY ID ASC;";
+
+                if (cmd == null)
+                {
+                    command.CommandText = sql;
+                }
+                else
+                {
+                    command = cmd;
+                }
+
+                // Заполнение данных в DataGridView
+                SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
+                DataSet dataSt = new DataSet();
+                adapter.Fill(dataSt, "Books");
+               
+
+                bindingSrcBooks = new BindingSource();
+                bindingSrcBooks.DataSource = dataSt.Tables["Books"];
+
+
+                bookIDTextBox.DataBindings.Clear();
+                titleTextBox.DataBindings.Clear();
+                authorTextBox.DataBindings.Clear();
+                publicationYearTextBox.DataBindings.Clear();
+                isbnTextBox.DataBindings.Clear();
+                availableTextBox.DataBindings.Clear();
+
+         
+                // Простая привязка данных
+                bookIDTextBox.DataBindings.Add("Text", bindingSrcBooks, "ID");
+                titleTextBox.DataBindings.Add("Text", bindingSrcBooks, "Title");
+                authorTextBox.DataBindings.Add("Text", bindingSrcBooks, "Author");
+                publicationYearTextBox.DataBindings.Add("Text", bindingSrcBooks, "PublicationYear");
+                isbnTextBox.DataBindings.Add("Text", bindingSrcBooks, "ISBN");
+                availableTextBox.DataBindings.Add("Text", bindingSrcBooks, "Available");
+
+                dataGridView3.Enabled = true;
+                dataGridView3.DataSource = bindingSrcBooks;
+
+                dataGridView3.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                dataGridView3.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+                dataGridView3.Columns[0].Width = 70; // ID
+                displayPositionBooks();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при привязке данных: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+
+
+        // ====================================================================================================================================================
+        // ================================================== Методы Отображения Позиции ======================================================================
+        // ====================================================================================================================================================
         private void displayPosition()
         {
             positionLabel.Text = "Position: " + Convert.ToString(bindingSrcCustomers.Position + 1) + "/" + bindingSrcCustomers.Count.ToString();
@@ -232,9 +308,14 @@ namespace LibraryProject
             positionLabel.Text = "Position: " + Convert.ToString(bindingSrcOrders.Position + 1) + "/" + bindingSrcOrders.Count.ToString();
         }
 
-        // ============================================================================
-        // ========================== Методы Навигации ==========================
-        // ============================================================================
+        private void displayPositionBooks()
+        {
+            positionLabel.Text = "Position: " + Convert.ToString(bindingSrcBooks.Position + 1) + "/" + bindingSrcBooks.Count.ToString();    
+        }
+
+        // ================================================================================================================================================================
+        // ===================================================================== Методы Навигации =========================================================================
+        // ================================================================================================================================================================
         private void moveFirstButton_Click(object sender, EventArgs e)
         {
             bindingSrcCustomers.MoveFirst();
@@ -283,9 +364,37 @@ namespace LibraryProject
             displayPositionOrders();
         }
 
-        // ============================================================================
-        // ========================== Методы обновления даты ==========================
-        // ============================================================================
+
+        private void moveFirstBookButton_Click(object sender, EventArgs e)
+        {
+            bindingSrcBooks.MoveFirst();    
+            displayPositionBooks();
+        }
+
+        private void movePreviousBookButton_Click(object sender, EventArgs e)
+        {
+            bindingSrcBooks.MovePrevious();
+            displayPositionBooks();
+        }
+
+        private void moveNextBookButton_Click(object sender, EventArgs e)
+        {
+            bindingSrcBooks.MoveNext();
+            displayPositionBooks();
+        }
+
+        private void moveLastBookButton_Click(object sender, EventArgs e)
+        {
+            bindingSrcBooks.MoveLast();
+            displayPositionBooks();
+        }
+
+
+
+
+        // ==============================================================================================================================================================================
+        // ==================================================================== Методы обновления даты ==================================================================================
+        // ==============================================================================================================================================================================
 
         // Кнопка обновления данных
         private void refreshDataButton_Click(object sender, EventArgs e)
@@ -308,9 +417,9 @@ namespace LibraryProject
             updateDataBindingOrders();
         }
 
-        // ============================================================================
-        // ========================== Методы добавления новой записи ==========================
-        // ============================================================================
+        // ================================================================================================================================================================
+        // ==================================================================== Методы добавления новой записи ============================================================
+        // ================================================================================================================================================================
 
         private void addNewButton_Click(object sender, EventArgs e)
         {
@@ -395,9 +504,9 @@ namespace LibraryProject
         }
 
 
-        // ============================================================================
-        // =================== Методы добавления параметров к sql-запросу  ===================
-        // ============================================================================
+        // ==================================================================================================================================================
+        // ============================================================= Методы добавления параметров к sql-запросу  ========================================
+        // ==================================================================================================================================================
         private void addCmdParameters()
         {
             command.Parameters.Clear();     // Очищаем все существующие параметры, чтобы предотвратить конфликты
@@ -430,7 +539,7 @@ namespace LibraryProject
         }
 
         // ========================================================================================================================================================
-        // ============== Методы сохранения изменений/обновлений даты =================
+        // ========================================== Методы сохранения изменений/обновлений даты =================================================================
         // ========================================================================================================================================================
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -866,6 +975,42 @@ namespace LibraryProject
         }
 
 
+        private void searchBookButton_Click(object sender, EventArgs e)
+        {
+            openConnection();
+            try
+            {
+                if (string.IsNullOrEmpty(keywordBookTextBox.Text.Trim()))
+                {
+                    updateDataBindingBooks();
+                    return;
+                }
+
+                sql = "SELECT * FROM books WHERE title LIKE @Keyword OR author LIKE @Keyword OR publicationYear LIKE @Keyword OR isbn LIKE @Keyword OR available LIKE @Keyword ORDER BY ID ASC";
+
+                command.CommandType= CommandType.Text;  
+                command.CommandText = sql;
+                command.Parameters.Clear();
+
+                string keyword = string.Format("%{0}%", keywordBookTextBox.Text);
+                command.Parameters.AddWithValue("Keyword", keyword);   
+                updateDataBindingBooks(command);
+
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Search Error: " + ex.Message.ToString(), "Error message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally 
+            {
+                closeConnection();
+                keywordOrdersTextBox.Focus();
+            }
+
+        }
+
+
 
 
         // =======================================================================================================================================================
@@ -889,13 +1034,22 @@ namespace LibraryProject
             catch (Exception) { }
         }
 
+        private void dataGridView3_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                displayPositionBooks();
+            }
+            catch (Exception) { }
+        }
+
+
         private void exitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        
-
+       
         private void exitOrdersButton_Click(object sender, EventArgs e)
         {
             Application.Exit();

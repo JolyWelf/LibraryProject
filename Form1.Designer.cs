@@ -68,7 +68,29 @@
             this.moveNextOrdersButton = new System.Windows.Forms.Button();
             this.moveFirstOrdersButton = new System.Windows.Forms.Button();
             this.movePreviousOrdersButton = new System.Windows.Forms.Button();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.moveLastBookButton = new System.Windows.Forms.Button();
+            this.moveNextBookButton = new System.Windows.Forms.Button();
+            this.movePreviousBookButton = new System.Windows.Forms.Button();
+            this.moveFirstBookButton = new System.Windows.Forms.Button();
+            this.availableTextBox = new System.Windows.Forms.TextBox();
+            this.isbnTextBox = new System.Windows.Forms.TextBox();
+            this.authorTextBox = new System.Windows.Forms.TextBox();
+            this.publicationYearTextBox = new System.Windows.Forms.TextBox();
+            this.titleTextBox = new System.Windows.Forms.TextBox();
+            this.bookIDTextBox = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.keywordBookTextBox = new System.Windows.Forms.TextBox();
+            this.searchBookButton = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -79,6 +101,10 @@
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.groupBox3.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -331,6 +357,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(27, 24);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -607,10 +634,222 @@
             this.movePreviousOrdersButton.UseVisualStyleBackColor = true;
             this.movePreviousOrdersButton.Click += new System.EventHandler(this.movePreviousOrdersButton_Click);
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.searchBookButton);
+            this.tabPage3.Controls.Add(this.keywordBookTextBox);
+            this.tabPage3.Controls.Add(this.groupBox6);
+            this.tabPage3.Controls.Add(this.groupBox5);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(1108, 414);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Books";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.dataGridView3);
+            this.groupBox6.Location = new System.Drawing.Point(462, 47);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(566, 275);
+            this.groupBox6.TabIndex = 1;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Database";
+            // 
+            // dataGridView3
+            // 
+            this.dataGridView3.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView3.Location = new System.Drawing.Point(3, 16);
+            this.dataGridView3.Name = "dataGridView3";
+            this.dataGridView3.Size = new System.Drawing.Size(560, 256);
+            this.dataGridView3.TabIndex = 0;
+            this.dataGridView3.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellContentClick);
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.moveLastBookButton);
+            this.groupBox5.Controls.Add(this.moveNextBookButton);
+            this.groupBox5.Controls.Add(this.movePreviousBookButton);
+            this.groupBox5.Controls.Add(this.moveFirstBookButton);
+            this.groupBox5.Controls.Add(this.availableTextBox);
+            this.groupBox5.Controls.Add(this.isbnTextBox);
+            this.groupBox5.Controls.Add(this.authorTextBox);
+            this.groupBox5.Controls.Add(this.publicationYearTextBox);
+            this.groupBox5.Controls.Add(this.titleTextBox);
+            this.groupBox5.Controls.Add(this.bookIDTextBox);
+            this.groupBox5.Controls.Add(this.label15);
+            this.groupBox5.Controls.Add(this.label14);
+            this.groupBox5.Controls.Add(this.label13);
+            this.groupBox5.Controls.Add(this.label12);
+            this.groupBox5.Controls.Add(this.label11);
+            this.groupBox5.Controls.Add(this.label10);
+            this.groupBox5.Location = new System.Drawing.Point(60, 47);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(364, 275);
+            this.groupBox5.TabIndex = 0;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Информация о книге";
+            // 
+            // moveLastBookButton
+            // 
+            this.moveLastBookButton.Location = new System.Drawing.Point(238, 205);
+            this.moveLastBookButton.Name = "moveLastBookButton";
+            this.moveLastBookButton.Size = new System.Drawing.Size(63, 23);
+            this.moveLastBookButton.TabIndex = 28;
+            this.moveLastBookButton.Text = ">|";
+            this.moveLastBookButton.UseVisualStyleBackColor = true;
+            this.moveLastBookButton.Click += new System.EventHandler(this.moveLastBookButton_Click);
+            // 
+            // moveNextBookButton
+            // 
+            this.moveNextBookButton.Location = new System.Drawing.Point(169, 205);
+            this.moveNextBookButton.Name = "moveNextBookButton";
+            this.moveNextBookButton.Size = new System.Drawing.Size(63, 23);
+            this.moveNextBookButton.TabIndex = 27;
+            this.moveNextBookButton.Text = ">";
+            this.moveNextBookButton.UseVisualStyleBackColor = true;
+            this.moveNextBookButton.Click += new System.EventHandler(this.moveNextBookButton_Click);
+            // 
+            // movePreviousBookButton
+            // 
+            this.movePreviousBookButton.Location = new System.Drawing.Point(100, 205);
+            this.movePreviousBookButton.Name = "movePreviousBookButton";
+            this.movePreviousBookButton.Size = new System.Drawing.Size(63, 23);
+            this.movePreviousBookButton.TabIndex = 26;
+            this.movePreviousBookButton.Text = "<";
+            this.movePreviousBookButton.UseVisualStyleBackColor = true;
+            this.movePreviousBookButton.Click += new System.EventHandler(this.movePreviousBookButton_Click);
+            // 
+            // moveFirstBookButton
+            // 
+            this.moveFirstBookButton.Location = new System.Drawing.Point(31, 205);
+            this.moveFirstBookButton.Name = "moveFirstBookButton";
+            this.moveFirstBookButton.Size = new System.Drawing.Size(63, 23);
+            this.moveFirstBookButton.TabIndex = 25;
+            this.moveFirstBookButton.Text = "|<";
+            this.moveFirstBookButton.UseVisualStyleBackColor = true;
+            this.moveFirstBookButton.Click += new System.EventHandler(this.moveFirstBookButton_Click);
+            // 
+            // availableTextBox
+            // 
+            this.availableTextBox.Location = new System.Drawing.Point(117, 165);
+            this.availableTextBox.Name = "availableTextBox";
+            this.availableTextBox.Size = new System.Drawing.Size(184, 20);
+            this.availableTextBox.TabIndex = 11;
+            // 
+            // isbnTextBox
+            // 
+            this.isbnTextBox.Location = new System.Drawing.Point(117, 139);
+            this.isbnTextBox.Name = "isbnTextBox";
+            this.isbnTextBox.Size = new System.Drawing.Size(184, 20);
+            this.isbnTextBox.TabIndex = 10;
+            // 
+            // authorTextBox
+            // 
+            this.authorTextBox.Location = new System.Drawing.Point(117, 87);
+            this.authorTextBox.Name = "authorTextBox";
+            this.authorTextBox.Size = new System.Drawing.Size(184, 20);
+            this.authorTextBox.TabIndex = 9;
+            // 
+            // publicationYearTextBox
+            // 
+            this.publicationYearTextBox.Location = new System.Drawing.Point(117, 113);
+            this.publicationYearTextBox.Name = "publicationYearTextBox";
+            this.publicationYearTextBox.Size = new System.Drawing.Size(184, 20);
+            this.publicationYearTextBox.TabIndex = 8;
+            // 
+            // titleTextBox
+            // 
+            this.titleTextBox.Location = new System.Drawing.Point(117, 61);
+            this.titleTextBox.Name = "titleTextBox";
+            this.titleTextBox.Size = new System.Drawing.Size(184, 20);
+            this.titleTextBox.TabIndex = 7;
+            // 
+            // bookIDTextBox
+            // 
+            this.bookIDTextBox.Location = new System.Drawing.Point(117, 36);
+            this.bookIDTextBox.Name = "bookIDTextBox";
+            this.bookIDTextBox.Size = new System.Drawing.Size(184, 20);
+            this.bookIDTextBox.TabIndex = 6;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(28, 168);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(50, 13);
+            this.label15.TabIndex = 5;
+            this.label15.Text = "Available";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(28, 142);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(32, 13);
+            this.label14.TabIndex = 4;
+            this.label14.Text = "ISBN";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(28, 116);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(81, 13);
+            this.label13.TabIndex = 3;
+            this.label13.Text = "PublicationYear";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(28, 90);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(38, 13);
+            this.label12.TabIndex = 2;
+            this.label12.Text = "Author";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(28, 64);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(27, 13);
+            this.label11.TabIndex = 1;
+            this.label11.Text = "Title";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(28, 39);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(18, 13);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "ID";
+            // 
             // contextMenuStrip2
             // 
             this.contextMenuStrip2.Name = "contextMenuStrip2";
             this.contextMenuStrip2.Size = new System.Drawing.Size(61, 4);
+            // 
+            // keywordBookTextBox
+            // 
+            this.keywordBookTextBox.Location = new System.Drawing.Point(524, 330);
+            this.keywordBookTextBox.Name = "keywordBookTextBox";
+            this.keywordBookTextBox.Size = new System.Drawing.Size(221, 20);
+            this.keywordBookTextBox.TabIndex = 2;
+            // 
+            // searchBookButton
+            // 
+            this.searchBookButton.Location = new System.Drawing.Point(751, 328);
+            this.searchBookButton.Name = "searchBookButton";
+            this.searchBookButton.Size = new System.Drawing.Size(228, 22);
+            this.searchBookButton.TabIndex = 3;
+            this.searchBookButton.Text = "SEARCH";
+            this.searchBookButton.UseVisualStyleBackColor = true;
+            this.searchBookButton.Click += new System.EventHandler(this.searchBookButton_Click);
             // 
             // Form1
             // 
@@ -637,6 +876,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -695,5 +940,27 @@
         private System.Windows.Forms.Button searchOrdersButton;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
         private System.Windows.Forms.TextBox keywordOrdersTextBox;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox availableTextBox;
+        private System.Windows.Forms.TextBox isbnTextBox;
+        private System.Windows.Forms.TextBox authorTextBox;
+        private System.Windows.Forms.TextBox publicationYearTextBox;
+        private System.Windows.Forms.TextBox titleTextBox;
+        private System.Windows.Forms.TextBox bookIDTextBox;
+        private System.Windows.Forms.DataGridView dataGridView3;
+        private System.Windows.Forms.Button moveLastBookButton;
+        private System.Windows.Forms.Button moveNextBookButton;
+        private System.Windows.Forms.Button movePreviousBookButton;
+        private System.Windows.Forms.Button moveFirstBookButton;
+        private System.Windows.Forms.Button searchBookButton;
+        private System.Windows.Forms.TextBox keywordBookTextBox;
     }
 }
