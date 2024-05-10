@@ -262,29 +262,29 @@ namespace LibraryProject
         private void moveFirstOrdersButton_Click(object sender, EventArgs e)
         {
             bindingSrcOrders.MoveFirst();
-            displayPosition();
+            displayPositionOrders();
         }
 
         private void movePreviousOrdersButton_Click(object sender, EventArgs e)
         {
             bindingSrcOrders.MovePrevious();
-            displayPosition();
+            displayPositionOrders();
         }
 
         private void moveNextOrdersButton_Click(object sender, EventArgs e)
         {
             bindingSrcOrders.MoveNext();
-            displayPosition();
+            displayPositionOrders();
         }
 
         private void moveLastOrdersButton_Click(object sender, EventArgs e)
         {
             bindingSrcOrders.MoveLast();
-            displayPosition();
+            displayPositionOrders();
         }
 
         // ============================================================================
-        // ========================== Методы Управления Данной Записью ==========================
+        // ========================== Методы обновления даты ==========================
         // ============================================================================
 
         // Кнопка обновления данных
@@ -308,7 +308,10 @@ namespace LibraryProject
             updateDataBindingOrders();
         }
 
-        // Кнопка добавления новой записи
+        // ============================================================================
+        // ========================== Методы добавления новой записи ==========================
+        // ============================================================================
+
         private void addNewButton_Click(object sender, EventArgs e)
         {
             try
@@ -390,9 +393,11 @@ namespace LibraryProject
             }
             catch { }
         }
- 
 
-        // Метод для добавления параметров к SQL-команде
+
+        // ============================================================================
+        // =================== Методы добавления параметров к sql-запросу  ===================
+        // ============================================================================
         private void addCmdParameters()
         {
             command.Parameters.Clear();     // Очищаем все существующие параметры, чтобы предотвратить конфликты
@@ -424,7 +429,10 @@ namespace LibraryProject
             }
         }
 
-        // Кнопка сохранения данных
+        // ========================================================================================================================================================
+        // ============== Методы сохранения изменений/обновлений даты =================
+        // ========================================================================================================================================================
+
         private void saveButton_Click(object sender, EventArgs e)
         {
             // проверка на заполнение полей. если одно не заполнено - ошибка
@@ -619,7 +627,10 @@ namespace LibraryProject
 
 
 
-        // Кнопка удаления данных
+        // =======================================================================================================================================================================================
+        // =================================================================== Методы удаления даты ===============================================================================================
+        // =======================================================================================================================================================================================
+
         private void deleteButton_Click(object sender, EventArgs e)
         {
             if (addNewButton.Text == "Cancel")
@@ -759,14 +770,9 @@ namespace LibraryProject
         }
 
 
-
-
-
-
-
-
-
-        // Кнопка поиска данных
+        // ========================================================================================================================================================
+        // ======================================================== Методы поиска данных ==========================================================================
+        // ========================================================================================================================================================
         private void searchButton_Click(object sender, EventArgs e)
         {
             if (addNewButton.Text == "Cancel")
@@ -811,10 +817,61 @@ namespace LibraryProject
             }
         }
 
-        // ============================================================================
-        // ========================== Прочие Методы ==========================
-        // ============================================================================
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void searchOrdersButton_Click(object sender, EventArgs e)
+        {
+            if (addNewOrdersButton.Text == "Cancel")
+            {
+                return;
+            }
+
+            openConnection();
+
+            try
+            {
+                if (string.IsNullOrEmpty(keywordOrdersTextBox.Text.Trim()))
+                {
+                    updateDataBindingOrders();
+                    return;
+                }
+
+                // Строим SQL-запрос с параметризованными условиями
+                sql = "SELECT * FROM tabOrders ";
+                sql += "WHERE CustomerID LIKE @Keyword ";
+                sql += "OR BookID LIKE @Keyword ";
+                sql += "OR OrderDate LIKE @Keyword ";
+                sql += "OR ReturnDate LIKE @Keyword ";
+                sql += "ORDER BY ID ASC";
+
+                command.CommandType = CommandType.Text;
+                command.CommandText = sql;
+                command.Parameters.Clear();
+
+                string keyword = string.Format("%{0}%", keywordOrdersTextBox.Text);
+
+                command.Parameters.AddWithValue("Keyword", keyword);
+
+                // Обновляем привязку данных на основе найденных результатов
+                updateDataBindingOrders(command);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Search Error: " + ex.Message.ToString(), "Error message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                closeConnection();
+                keywordOrdersTextBox.Focus();
+            }
+
+        }
+
+
+
+
+        // =======================================================================================================================================================
+        // ========================================================== Прочие Методы ==============================================================================
+        // =======================================================================================================================================================
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) 
         {
             try
             {
@@ -837,7 +894,7 @@ namespace LibraryProject
             Application.Exit();
         }
 
-       
+        
 
         private void exitOrdersButton_Click(object sender, EventArgs e)
         {

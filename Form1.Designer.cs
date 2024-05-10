@@ -44,6 +44,8 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.keywordOrdersTextBox = new System.Windows.Forms.TextBox();
+            this.searchOrdersButton = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -66,7 +68,7 @@
             this.moveNextOrdersButton = new System.Windows.Forms.Button();
             this.moveFirstOrdersButton = new System.Windows.Forms.Button();
             this.movePreviousOrdersButton = new System.Windows.Forms.Button();
-            this.SearchOrdersButton = new System.Windows.Forms.Button();
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.statusStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -351,7 +353,8 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.SearchOrdersButton);
+            this.tabPage2.Controls.Add(this.keywordOrdersTextBox);
+            this.tabPage2.Controls.Add(this.searchOrdersButton);
             this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -361,6 +364,23 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Orders";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // keywordOrdersTextBox
+            // 
+            this.keywordOrdersTextBox.Location = new System.Drawing.Point(520, 301);
+            this.keywordOrdersTextBox.Name = "keywordOrdersTextBox";
+            this.keywordOrdersTextBox.Size = new System.Drawing.Size(242, 20);
+            this.keywordOrdersTextBox.TabIndex = 30;
+            // 
+            // searchOrdersButton
+            // 
+            this.searchOrdersButton.Location = new System.Drawing.Point(768, 301);
+            this.searchOrdersButton.Name = "searchOrdersButton";
+            this.searchOrdersButton.Size = new System.Drawing.Size(226, 23);
+            this.searchOrdersButton.TabIndex = 29;
+            this.searchOrdersButton.Text = "search";
+            this.searchOrdersButton.UseVisualStyleBackColor = true;
+            this.searchOrdersButton.Click += new System.EventHandler(this.searchOrdersButton_Click);
             // 
             // groupBox4
             // 
@@ -587,14 +607,10 @@
             this.movePreviousOrdersButton.UseVisualStyleBackColor = true;
             this.movePreviousOrdersButton.Click += new System.EventHandler(this.movePreviousOrdersButton_Click);
             // 
-            // SearchOrdersButton
+            // contextMenuStrip2
             // 
-            this.SearchOrdersButton.Location = new System.Drawing.Point(638, 317);
-            this.SearchOrdersButton.Name = "SearchOrdersButton";
-            this.SearchOrdersButton.Size = new System.Drawing.Size(75, 23);
-            this.SearchOrdersButton.TabIndex = 29;
-            this.SearchOrdersButton.Text = "search";
-            this.SearchOrdersButton.UseVisualStyleBackColor = true;
+            this.contextMenuStrip2.Name = "contextMenuStrip2";
+            this.contextMenuStrip2.Size = new System.Drawing.Size(61, 4);
             // 
             // Form1
             // 
@@ -616,6 +632,7 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.groupBox3.ResumeLayout(false);
@@ -675,6 +692,8 @@
         private System.Windows.Forms.TextBox returnDateTextBox;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.Button SearchOrdersButton;
+        private System.Windows.Forms.Button searchOrdersButton;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
+        private System.Windows.Forms.TextBox keywordOrdersTextBox;
     }
 }
