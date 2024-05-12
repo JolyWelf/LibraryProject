@@ -29,6 +29,12 @@ namespace LibraryProject
             InitializeComponent();
         }
 
+        public static class SessionData
+        {
+            public static int currentCustomerId { get; set; }
+        }
+
+
         // Метод, вызываемый при загрузке формы
         private void FormAuth_Load(object sender, EventArgs e)
         {
@@ -83,11 +89,13 @@ namespace LibraryProject
 
 
         // Метод для проверки учетных данных и определения типа пользователя
-        private (bool isValid, int userType) ValidateUser(string login, string password)
+        private (bool isValid, int userType, int userId) ValidateUser(string login, string password)
         {
             openConnection();
             bool isValid = false;
             int userType = -1;
+            int userId = -1; // Идентификатор пользователя
+
 
             try
             {
@@ -102,6 +110,7 @@ namespace LibraryProject
                 {
                     isValid = true;
                     userType = Convert.ToInt32(result);
+                    userId = Convert.ToInt32(result); // Получаем идентификатор пользователя
                 }
             }
             catch (Exception ex)
@@ -113,7 +122,7 @@ namespace LibraryProject
                 closeConnection();
             }
 
-            return (isValid, userType);
+            return (isValid, userType, userId);
         }
 
 
@@ -123,14 +132,14 @@ namespace LibraryProject
             string login = loginTextBox.Text;
             string password = passwordTextBox.Text;
 
-            //// Открываем форму библиотекаря сразу
+            //// Открываем форму библиотекаря сразу. для отладки
             //Form1 librarianForm = new Form1();
             //librarianForm.Show();
             //this.Hide(); // Скрываем форму авторизации
 
 
             // Проверка учетных данных и определение типа пользователя
-            var (isValid, userType) = ValidateUser(login, password);
+            var (isValid, userType, userId) = ValidateUser(login, password);
 
             if (isValid)
             {
@@ -140,6 +149,9 @@ namespace LibraryProject
                 //    FormAdmin adminForm = new FormAdmin(); // Замените на вашу форму администратора
                 //    adminForm.Show();
                 //}
+
+                SessionData.currentCustomerId = userId;
+
                 if (userType == 1) // Библиотекарь
                 {
                     MessageBox.Show("Добро пожаловать, библиотекарь!",
@@ -166,18 +178,5 @@ namespace LibraryProject
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
-
-        private void loginTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void passwordTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
     }
 }

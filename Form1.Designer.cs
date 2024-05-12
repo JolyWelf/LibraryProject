@@ -74,6 +74,8 @@
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.exitBooksButton = new System.Windows.Forms.Button();
+            this.refreshDataBooksButton = new System.Windows.Forms.Button();
             this.moveLastBookButton = new System.Windows.Forms.Button();
             this.moveNextBookButton = new System.Windows.Forms.Button();
             this.movePreviousBookButton = new System.Windows.Forms.Button();
@@ -91,9 +93,12 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.keywordResBooksTextBox = new System.Windows.Forms.TextBox();
+            this.searchResBooksButton = new System.Windows.Forms.Button();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.dataGridView4 = new System.Windows.Forms.DataGridView();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.refreshDataResBooks = new System.Windows.Forms.Button();
             this.exitResBooksButton = new System.Windows.Forms.Button();
             this.moveLastResButton = new System.Windows.Forms.Button();
             this.moveNextResButton = new System.Windows.Forms.Button();
@@ -110,9 +115,6 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.refreshDataResBooks = new System.Windows.Forms.Button();
-            this.refreshDataBooksButton = new System.Windows.Forms.Button();
-            this.exitBooksButton = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -739,6 +741,28 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Информация о книге";
             // 
+            // exitBooksButton
+            // 
+            this.exitBooksButton.ForeColor = System.Drawing.Color.Red;
+            this.exitBooksButton.Location = new System.Drawing.Point(169, 234);
+            this.exitBooksButton.Name = "exitBooksButton";
+            this.exitBooksButton.Size = new System.Drawing.Size(132, 38);
+            this.exitBooksButton.TabIndex = 30;
+            this.exitBooksButton.Text = "Exit";
+            this.exitBooksButton.UseVisualStyleBackColor = true;
+            this.exitBooksButton.Click += new System.EventHandler(this.exitBooksButton_Click);
+            // 
+            // refreshDataBooksButton
+            // 
+            this.refreshDataBooksButton.ForeColor = System.Drawing.Color.Blue;
+            this.refreshDataBooksButton.Location = new System.Drawing.Point(31, 234);
+            this.refreshDataBooksButton.Name = "refreshDataBooksButton";
+            this.refreshDataBooksButton.Size = new System.Drawing.Size(132, 38);
+            this.refreshDataBooksButton.TabIndex = 29;
+            this.refreshDataBooksButton.Text = "Refresh Data";
+            this.refreshDataBooksButton.UseVisualStyleBackColor = true;
+            this.refreshDataBooksButton.Click += new System.EventHandler(this.refreshDataBooksButton_Click);
+            // 
             // moveLastBookButton
             // 
             this.moveLastBookButton.Location = new System.Drawing.Point(238, 205);
@@ -877,6 +901,8 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.keywordResBooksTextBox);
+            this.tabPage4.Controls.Add(this.searchResBooksButton);
             this.tabPage4.Controls.Add(this.groupBox8);
             this.tabPage4.Controls.Add(this.groupBox7);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
@@ -886,12 +912,29 @@
             this.tabPage4.Text = "ReservedBooks";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // keywordResBooksTextBox
+            // 
+            this.keywordResBooksTextBox.Location = new System.Drawing.Point(494, 314);
+            this.keywordResBooksTextBox.Name = "keywordResBooksTextBox";
+            this.keywordResBooksTextBox.Size = new System.Drawing.Size(254, 20);
+            this.keywordResBooksTextBox.TabIndex = 3;
+            // 
+            // searchResBooksButton
+            // 
+            this.searchResBooksButton.Location = new System.Drawing.Point(754, 312);
+            this.searchResBooksButton.Name = "searchResBooksButton";
+            this.searchResBooksButton.Size = new System.Drawing.Size(241, 23);
+            this.searchResBooksButton.TabIndex = 2;
+            this.searchResBooksButton.Text = "SEARCH";
+            this.searchResBooksButton.UseVisualStyleBackColor = true;
+            this.searchResBooksButton.Click += new System.EventHandler(this.searchResBooksButton_Click);
+            // 
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this.dataGridView4);
             this.groupBox8.Location = new System.Drawing.Point(450, 43);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(579, 293);
+            this.groupBox8.Size = new System.Drawing.Size(579, 263);
             this.groupBox8.TabIndex = 1;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Database";
@@ -903,7 +946,7 @@
             this.dataGridView4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView4.Location = new System.Drawing.Point(3, 16);
             this.dataGridView4.Name = "dataGridView4";
-            this.dataGridView4.Size = new System.Drawing.Size(573, 274);
+            this.dataGridView4.Size = new System.Drawing.Size(573, 244);
             this.dataGridView4.TabIndex = 0;
             this.dataGridView4.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView4_CellContentClick);
             // 
@@ -931,6 +974,17 @@
             this.groupBox7.TabIndex = 0;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Информация о заказе";
+            // 
+            // refreshDataResBooks
+            // 
+            this.refreshDataResBooks.ForeColor = System.Drawing.Color.Blue;
+            this.refreshDataResBooks.Location = new System.Drawing.Point(57, 227);
+            this.refreshDataResBooks.Name = "refreshDataResBooks";
+            this.refreshDataResBooks.Size = new System.Drawing.Size(142, 36);
+            this.refreshDataResBooks.TabIndex = 15;
+            this.refreshDataResBooks.Text = "Refresh Data";
+            this.refreshDataResBooks.UseVisualStyleBackColor = true;
+            this.refreshDataResBooks.Click += new System.EventHandler(this.refreshDataResBooks_Click);
             // 
             // exitResBooksButton
             // 
@@ -1068,39 +1122,6 @@
             this.contextMenuStrip2.Name = "contextMenuStrip2";
             this.contextMenuStrip2.Size = new System.Drawing.Size(61, 4);
             // 
-            // refreshDataResBooks
-            // 
-            this.refreshDataResBooks.ForeColor = System.Drawing.Color.Blue;
-            this.refreshDataResBooks.Location = new System.Drawing.Point(57, 227);
-            this.refreshDataResBooks.Name = "refreshDataResBooks";
-            this.refreshDataResBooks.Size = new System.Drawing.Size(142, 36);
-            this.refreshDataResBooks.TabIndex = 15;
-            this.refreshDataResBooks.Text = "Refresh Data";
-            this.refreshDataResBooks.UseVisualStyleBackColor = true;
-            this.refreshDataResBooks.Click += new System.EventHandler(this.refreshDataResBooks_Click);
-            // 
-            // refreshDataBooksButton
-            // 
-            this.refreshDataBooksButton.ForeColor = System.Drawing.Color.Blue;
-            this.refreshDataBooksButton.Location = new System.Drawing.Point(31, 234);
-            this.refreshDataBooksButton.Name = "refreshDataBooksButton";
-            this.refreshDataBooksButton.Size = new System.Drawing.Size(132, 38);
-            this.refreshDataBooksButton.TabIndex = 29;
-            this.refreshDataBooksButton.Text = "Refresh Data";
-            this.refreshDataBooksButton.UseVisualStyleBackColor = true;
-            this.refreshDataBooksButton.Click += new System.EventHandler(this.refreshDataBooksButton_Click);
-            // 
-            // exitBooksButton
-            // 
-            this.exitBooksButton.ForeColor = System.Drawing.Color.Red;
-            this.exitBooksButton.Location = new System.Drawing.Point(169, 234);
-            this.exitBooksButton.Name = "exitBooksButton";
-            this.exitBooksButton.Size = new System.Drawing.Size(132, 38);
-            this.exitBooksButton.TabIndex = 30;
-            this.exitBooksButton.Text = "Exit";
-            this.exitBooksButton.UseVisualStyleBackColor = true;
-            this.exitBooksButton.Click += new System.EventHandler(this.exitBooksButton_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1133,6 +1154,7 @@
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.groupBox8.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
             this.groupBox7.ResumeLayout(false);
@@ -1239,5 +1261,7 @@
         private System.Windows.Forms.Button refreshDataResBooks;
         private System.Windows.Forms.Button refreshDataBooksButton;
         private System.Windows.Forms.Button exitBooksButton;
+        private System.Windows.Forms.TextBox keywordResBooksTextBox;
+        private System.Windows.Forms.Button searchResBooksButton;
     }
 }

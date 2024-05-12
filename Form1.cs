@@ -523,6 +523,7 @@ namespace LibraryProject
             }
 
             updateDataBiding();
+            displayPosition();
         }
 
         private void refreshDataOrdersButton_Click(object sender, EventArgs e)
@@ -533,17 +534,20 @@ namespace LibraryProject
             }
 
             updateDataBindingOrders();
+            displayPositionOrders();    
         }
 
         private void refreshDataBooksButton_Click(object sender, EventArgs e)
         {
             updateDataBindingBooks();
+            displayPositionBooks();
         }
 
 
         private void refreshDataResBooks_Click(object sender, EventArgs e)
         {
             updateDataBindingReservedBooks();
+            displayPositionReservedBooks();
         }
 
 
@@ -1140,6 +1144,59 @@ namespace LibraryProject
 
         }
 
+        private void searchResBooksButton_Click(object sender, EventArgs e)
+        {
+            openConnection();
+            try
+            {
+                if (string.IsNullOrEmpty(keywordResBooksTextBox.Text.Trim()))
+                {
+                    updateDataBindingReservedBooks();
+                    return;
+                }
+
+                string sql = @"
+                        SELECT 
+                            customers.FirstName || ' ' || customers.LastName AS Client,
+                            books.Title,
+                            tabOrders.OrderDate,
+                            tabOrders.ReturnDate,
+                            books.ISBN
+                        FROM 
+                            tabOrders
+                        INNER JOIN -- соединяемся по ключу
+                            books ON tabOrders.BookID = books.ID
+                        INNER JOIN 
+                            customers ON tabOrders.CustomerID = customers.ID
+                        WHERE
+                            customers.FirstName LIKE @Keyword OR 
+                            customers.LastName LIKE @Keyword OR
+                            books.Title LIKE @Keyword OR
+                            tabOrders.OrderDate LIKE @Keyword OR
+                            tabOrders.ReturnDate LIKE @Keyword OR
+                            books.ISBN LIKE @Keyword
+                        ORDER BY 
+                            customers.LastName ASC, customers.FirstName ASC;
+                        ";
+                command.CommandType = CommandType.Text;
+                command.CommandText = sql;
+                command.Parameters.Clear();
+
+                string keyword = string.Format("%{0}%", keywordResBooksTextBox.Text);
+                command.Parameters.AddWithValue("Keyword", keyword);
+                updateDataBindingReservedBooks(command);
+
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show("Search Error: " + ex.Message.ToString(), "Error message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                closeConnection();
+                keywordResBooksTextBox.Focus();
+            }
+        }
 
 
 
@@ -1189,6 +1246,7 @@ namespace LibraryProject
             Application.Exit();
         }
 
+        
 
         private void exitOrdersButton_Click(object sender, EventArgs e)
         {
