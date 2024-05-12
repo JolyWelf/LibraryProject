@@ -169,7 +169,26 @@ namespace LibraryProject
                 
 
                 dbCommand = "SELECT";
-                sql = "SELECT * FROM tabOrders ORDER BY ID ASC;";
+                string sql = @"
+                        SELECT
+                            tabOrders.ID,
+                            customers.FirstName || ' ' || customers.LastName AS Client,
+                            books.ID AS BookID,  
+                            tabOrders.OrderDate,
+                            tabOrders.ReturnDate
+                        FROM
+                            tabOrders
+                        INNER JOIN
+                            books ON tabOrders.BookID = books.ID
+                        INNER JOIN
+                            customers ON tabOrders.CustomerID = customers.ID 
+                        ORDER BY
+                            customers.LastName ASC,
+                            customers.FirstName ASC,
+                            books.ID ASC,
+                            tabOrders.ID ASC;
+                    ";
+
 
                 if (cmd == null)
                 {
@@ -184,18 +203,13 @@ namespace LibraryProject
                 SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
                 DataSet dataSt = new DataSet();
                 adapter.Fill(dataSt, "TabOrders");
-                // Добавим проверку на наличие данных в таблице
-                if (dataSt.Tables["TabOrders"].Rows.Count == 0)
-                {
-                    MessageBox.Show("No data found in tabOrders table!", "Data Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+              
 
                 bindingSrcOrders = new BindingSource();
                 bindingSrcOrders.DataSource = dataSt.Tables["TabOrders"];
 
                 orderIDTextBox.DataBindings.Clear();
-                customerIDOrdersTextBox.DataBindings.Clear();
+                clientOrdersTextBox.DataBindings.Clear();
                 bookIDOrdersTextBox.DataBindings.Clear();
                 orderDateTextBox.DataBindings.Clear();
                 returnDateTextBox.DataBindings.Clear();
@@ -203,7 +217,7 @@ namespace LibraryProject
 
                 // Простая привязка данных
                 orderIDTextBox.DataBindings.Add("Text", bindingSrcOrders, "ID");
-                customerIDOrdersTextBox.DataBindings.Add("Text", bindingSrcOrders, "CustomerID");
+                clientOrdersTextBox.DataBindings.Add("Text", bindingSrcOrders, "Client");
                 bookIDOrdersTextBox.DataBindings.Add("Text", bindingSrcOrders, "BookID");
                 orderDateTextBox.DataBindings.Add("Text", bindingSrcOrders, "OrderDate");
                 returnDateTextBox.DataBindings.Add("Text", bindingSrcOrders, "ReturnDate");
@@ -214,7 +228,6 @@ namespace LibraryProject
                 dataGridView2.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
                 dataGridView2.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
-                dataGridView2.Columns[0].Width = 70; // ID
                 displayPositionOrders();
             }
             catch (Exception ex)
@@ -607,7 +620,7 @@ namespace LibraryProject
                     dataGridView2.ClearSelection();
                     dataGridView2.Enabled = false;
                     //clearTextBoxBindings(groupBox3.Controls); // Очистка полей в группе Orders
-                    customerIDOrdersTextBox.Focus();
+                    clientOrdersTextBox.Focus();
                 }
                 else
                 {
@@ -661,7 +674,7 @@ namespace LibraryProject
             command.Parameters.Clear();
             command.CommandText = sql;
 
-            command.Parameters.AddWithValue("CustomerID", customerIDOrdersTextBox.Text.Trim());
+            command.Parameters.AddWithValue("CustomerID", clientOrdersTextBox.Text.Trim());
             command.Parameters.AddWithValue("BookID", bookIDOrdersTextBox.Text.Trim());
             command.Parameters.AddWithValue("OrderDate", orderDateTextBox.Text.Trim());
             command.Parameters.AddWithValue("ReturnDate", returnDateTextBox.Text.Trim());
@@ -765,7 +778,7 @@ namespace LibraryProject
         private void saveOrdersButton_Click(object sender, EventArgs e)
         {
             // Проверка на заполнение полей
-            if (string.IsNullOrEmpty(customerIDOrdersTextBox.Text.Trim()) ||
+            if (string.IsNullOrEmpty(clientOrdersTextBox.Text.Trim()) ||
                 string.IsNullOrEmpty(bookIDOrdersTextBox.Text.Trim()) ||
                 string.IsNullOrEmpty(orderDateTextBox.Text.Trim()) ||
                 string.IsNullOrEmpty(returnDateTextBox.Text.Trim()))
@@ -1024,6 +1037,7 @@ namespace LibraryProject
             }
 
             openConnection();
+            displayPosition();
 
             try
             {
@@ -1068,6 +1082,7 @@ namespace LibraryProject
             }
 
             openConnection();
+            displayPositionOrders();
 
             try
             {
@@ -1112,6 +1127,7 @@ namespace LibraryProject
         private void searchBookButton_Click(object sender, EventArgs e)
         {
             openConnection();
+            displayPositionBooks();
             try
             {
                 if (string.IsNullOrEmpty(keywordBookTextBox.Text.Trim()))
@@ -1147,6 +1163,7 @@ namespace LibraryProject
         private void searchResBooksButton_Click(object sender, EventArgs e)
         {
             openConnection();
+            displayPositionReservedBooks();
             try
             {
                 if (string.IsNullOrEmpty(keywordResBooksTextBox.Text.Trim()))

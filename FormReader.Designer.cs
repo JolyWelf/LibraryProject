@@ -504,7 +504,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tabControl1);
             this.Name = "FormReader";
-            this.Text = "FormReader";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Библиотечная картотека";
             this.Load += new System.EventHandler(this.FormReader_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);

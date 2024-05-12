@@ -58,7 +58,7 @@
             this.refreshDataOrdersButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.saveOrdersButton = new System.Windows.Forms.Button();
-            this.customerIDOrdersTextBox = new System.Windows.Forms.TextBox();
+            this.clientOrdersTextBox = new System.Windows.Forms.TextBox();
             this.addNewOrdersButton = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.deleteOrdersButton = new System.Windows.Forms.Button();
@@ -471,7 +471,7 @@
             this.groupBox3.Controls.Add(this.refreshDataOrdersButton);
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.saveOrdersButton);
-            this.groupBox3.Controls.Add(this.customerIDOrdersTextBox);
+            this.groupBox3.Controls.Add(this.clientOrdersTextBox);
             this.groupBox3.Controls.Add(this.addNewOrdersButton);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.deleteOrdersButton);
@@ -552,9 +552,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(49, 61);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 13);
+            this.label6.Size = new System.Drawing.Size(33, 13);
             this.label6.TabIndex = 9;
-            this.label6.Text = "Customer ID";
+            this.label6.Text = "Client";
             // 
             // saveOrdersButton
             // 
@@ -567,12 +567,12 @@
             this.saveOrdersButton.UseVisualStyleBackColor = true;
             this.saveOrdersButton.Click += new System.EventHandler(this.saveOrdersButton_Click);
             // 
-            // customerIDOrdersTextBox
+            // clientOrdersTextBox
             // 
-            this.customerIDOrdersTextBox.Location = new System.Drawing.Point(127, 58);
-            this.customerIDOrdersTextBox.Name = "customerIDOrdersTextBox";
-            this.customerIDOrdersTextBox.Size = new System.Drawing.Size(218, 20);
-            this.customerIDOrdersTextBox.TabIndex = 10;
+            this.clientOrdersTextBox.Location = new System.Drawing.Point(127, 58);
+            this.clientOrdersTextBox.Name = "clientOrdersTextBox";
+            this.clientOrdersTextBox.Size = new System.Drawing.Size(218, 20);
+            this.clientOrdersTextBox.TabIndex = 10;
             // 
             // addNewOrdersButton
             // 
@@ -1130,6 +1130,7 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.statusStrip1);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Библиотечная картотека";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.statusStrip1.ResumeLayout(false);
@@ -1200,7 +1201,7 @@
         private System.Windows.Forms.Button refreshDataOrdersButton;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button saveOrdersButton;
-        private System.Windows.Forms.TextBox customerIDOrdersTextBox;
+        private System.Windows.Forms.TextBox clientOrdersTextBox;
         private System.Windows.Forms.Button addNewOrdersButton;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button deleteOrdersButton;

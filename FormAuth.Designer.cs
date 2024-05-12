@@ -88,7 +88,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "FormAuth";
-            this.Text = "FormAuth";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Авторизация";
             this.Load += new System.EventHandler(this.FormAuth_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
